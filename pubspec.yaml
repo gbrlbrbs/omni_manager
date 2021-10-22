@@ -1,5 +1,5 @@
 name: omni_manager
-description: A new Flutter project.
+description: A Flutter web application for people analytics.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -30,6 +30,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.7
   http: ^0.13.3
+  firebase_core: ^1.8.0
+  firebase_auth: ^3.1.4
+  cloud_firestore: ^2.5.4
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
