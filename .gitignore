@@ -49,3 +49,6 @@ app.*.map.json
 /windows/
 /ios/
 /android/
+
+# firebase cache info
+/.firebase
