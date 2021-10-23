@@ -44,3 +44,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# since we're only building for web
+/windows/
+/ios/
+/android/
+
+# firebase cache info
+/.firebase
