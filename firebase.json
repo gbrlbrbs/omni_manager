@@ -9,6 +9,7 @@
     ]
   },
   "hosting": {
+    "site": "omnimanager",
     "public": "public",
     "ignore": [
       "firebase.json",
