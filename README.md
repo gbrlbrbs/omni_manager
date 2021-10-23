@@ -1,6 +1,6 @@
-# omni_manager
+# OmniManager
 
-A new Flutter project.
+A Flutter web application for people analytics.
 
 ## Getting Started
 
