@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/Home.dart';
-import 'package:omni_manager/pages/Register.dart';
 import 'package:omni_manager/utils/constants.dart';
 
-class LoginPage extends StatefulWidget {
-  static const String routeName = "/login";
+class RegisterPage extends StatefulWidget {
+  static const String routeName = "/register";
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
 
   final _usernameController = TextEditingController();
 
   final _passwordController = TextEditingController();
 
+  final _repeatpasswordController = TextEditingController();
+
+  final _departmentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Login Page"),
+          title: Text("Staff Register Page"),
         ),
         body: Stack(
           fit: StackFit.expand,
@@ -37,6 +42,16 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            TextFormField(
+                              controller: _nameController,
+                              keyboardType: TextInputType.text,
+                              validator: (s) {},
+                              decoration: InputDecoration(
+                                  hintText: "Your name", labelText: "Name"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             TextFormField(
                               controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
@@ -57,6 +72,26 @@ class _LoginPageState extends State<LoginPage> {
                                   hintText: "Enter password",
                                   labelText: "Password"),
                             ),
+                            TextFormField(
+                              controller: _repeatpasswordController,
+                              keyboardType: TextInputType.text,
+                              validator: (s) {},
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: "Confirm password",
+                                  labelText: "Repeat Password"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
+                              controller: _departmentController,
+                              keyboardType: TextInputType.text,
+                              validator: (s) {},
+                              decoration: InputDecoration(
+                                  hintText: "Enter the department you work at",
+                                  labelText: "Department"),
+                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -66,18 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.pushReplacementNamed(
                                     context, HomePage.routeName);
                               },
-                              child: Text("Sign In"),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, RegisterPage.routeName);
-                              },
                               child: Text("Register"),
-                            ),
+                            )
                           ],
                         ),
                       ),
