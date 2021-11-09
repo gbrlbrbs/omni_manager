@@ -40,10 +40,15 @@ class _LoginPageState extends State<LoginPage> {
                             TextFormField(
                               controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
-                              validator: (s) {},
                               decoration: InputDecoration(
                                   hintText: "Enter email",
                                   labelText: "Username"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your e-mail';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -51,20 +56,32 @@ class _LoginPageState extends State<LoginPage> {
                             TextFormField(
                               controller: _passwordController,
                               keyboardType: TextInputType.text,
-                              validator: (s) {},
                               obscureText: true,
                               decoration: InputDecoration(
                                   hintText: "Enter password",
                                   labelText: "Password"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                Constants.prefs.setBool("loggedIn", true);
-                                Navigator.pushReplacementNamed(
-                                    context, HomePage.routeName);
+                                if (formKey.currentState!.validate()) {
+                                  // Verify login data from API here
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Loading...')),
+                                  );
+                                  Constants.prefs.setBool("loggedIn", true);
+                                  Navigator.pushReplacementNamed(
+                                      context, HomePage.routeName);
+                                }
                               },
                               child: Text("Sign In"),
                             ),

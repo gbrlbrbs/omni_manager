@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/Home.dart';
+import 'package:omni_manager/pages/Login.dart';
 import 'package:omni_manager/utils/constants.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -45,9 +46,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             TextFormField(
                               controller: _nameController,
                               keyboardType: TextInputType.text,
-                              validator: (s) {},
                               decoration: InputDecoration(
                                   hintText: "Your name", labelText: "Name"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your name';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -55,10 +61,15 @@ class _RegisterPageState extends State<RegisterPage> {
                             TextFormField(
                               controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
-                              validator: (s) {},
                               decoration: InputDecoration(
-                                  hintText: "Enter email",
+                                  hintText: "Enter e-mail",
                                   labelText: "Username"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your e-mail';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -66,20 +77,33 @@ class _RegisterPageState extends State<RegisterPage> {
                             TextFormField(
                               controller: _passwordController,
                               keyboardType: TextInputType.text,
-                              validator: (s) {},
                               obscureText: true,
                               decoration: InputDecoration(
                                   hintText: "Enter password",
                                   labelText: "Password"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormField(
                               controller: _repeatpasswordController,
                               keyboardType: TextInputType.text,
-                              validator: (s) {},
                               obscureText: true,
                               decoration: InputDecoration(
                                   hintText: "Confirm password",
                                   labelText: "Repeat Password"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please confirm your password';
+                                }
+                                if (value != _passwordController.text) {
+                                  return 'Unmatched passwords! Try typing again.';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -97,12 +121,29 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                Constants.prefs.setBool("loggedIn", true);
-                                Navigator.pushReplacementNamed(
-                                    context, HomePage.routeName);
+                                if (formKey.currentState!.validate()) {
+                                  // Send Data to the DB here
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Loading...')),
+                                  );
+                                  Constants.prefs.setBool("loggedIn", true);
+                                  Navigator.pushReplacementNamed(
+                                      context, HomePage.routeName);
+                                }
                               },
                               child: Text("Register"),
-                            )
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, LoginPage.routeName);
+                              },
+                              child: Text("Sign In"),
+                            ),
                           ],
                         ),
                       ),
