@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/Home.dart';
-import 'package:omni_manager/pages/Register.dart';
+import 'package:omni_manager/pages/Login.dart';
 import 'package:omni_manager/utils/constants.dart';
 
-class LoginPage extends StatefulWidget {
-  static const String routeName = "/login";
+class RegisterPage extends StatefulWidget {
+  static const String routeName = "/register";
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
 
   final _usernameController = TextEditingController();
 
   final _passwordController = TextEditingController();
 
+  final _repeatpasswordController = TextEditingController();
+
+  final _departmentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Login Page"),
+          title: Text("Staff Register Page"),
         ),
         body: Stack(
           fit: StackFit.expand,
@@ -38,10 +44,25 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             TextFormField(
+                              controller: _nameController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  hintText: "Your name", labelText: "Name"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your name';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
                               controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  hintText: "Enter email",
+                                  hintText: "Enter e-mail",
                                   labelText: "Username"),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -67,13 +88,41 @@ class _LoginPageState extends State<LoginPage> {
                                 return null;
                               },
                             ),
+                            TextFormField(
+                              controller: _repeatpasswordController,
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: "Confirm password",
+                                  labelText: "Repeat Password"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please confirm your password';
+                                }
+                                if (value != _passwordController.text) {
+                                  return 'Unmatched passwords! Try typing again.';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
+                              controller: _departmentController,
+                              keyboardType: TextInputType.text,
+                              validator: (s) {},
+                              decoration: InputDecoration(
+                                  hintText: "Enter the department you work at",
+                                  labelText: "Department"),
+                            ),
                             SizedBox(
                               height: 20,
                             ),
                             ElevatedButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  // Verify login data from API here
+                                  // Send Data to the DB here
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Loading...')),
@@ -83,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context, HomePage.routeName);
                                 }
                               },
-                              child: Text("Sign In"),
+                              child: Text("Register"),
                             ),
                             SizedBox(
                               height: 10,
@@ -91,9 +140,9 @@ class _LoginPageState extends State<LoginPage> {
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
-                                    context, RegisterPage.routeName);
+                                    context, LoginPage.routeName);
                               },
-                              child: Text("Register"),
+                              child: Text("Sign In"),
                             ),
                           ],
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:omni_manager/pages/Home.dart';
 import 'package:omni_manager/pages/Login.dart';
+import 'package:omni_manager/pages/Register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';
 
@@ -28,7 +29,7 @@ class _AppState extends State<App> {
       setState(() {
         _initialized = true;
       });
-    } catch(e) {
+    } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
       setState(() {
         _error = true;
@@ -45,23 +46,23 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     // Show error message if initialization failed
-    if(_error) {
+    if (_error) {
       return Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Color.fromRGBO(255, 36, 49, 1),
-          alignment: Alignment.bottomCenter,
-        );
+        height: double.infinity,
+        width: double.infinity,
+        color: Color.fromRGBO(255, 36, 49, 1),
+        alignment: Alignment.bottomCenter,
+      );
     }
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
       return Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Color.fromRGBO(34, 36, 49, 1),
-          alignment: Alignment.bottomCenter,
-        );
+        height: double.infinity,
+        width: double.infinity,
+        color: Color.fromRGBO(34, 36, 49, 1),
+        alignment: Alignment.bottomCenter,
+      );
     }
 
     return MyApp();
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         HomePage.routeName: (context) => HomePage(),
+        RegisterPage.routeName: (context) => RegisterPage(),
       },
     );
   }
