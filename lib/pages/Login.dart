@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/Home.dart';
 import 'package:omni_manager/pages/Register.dart';
 import 'package:omni_manager/utils/constants.dart';
+import 'package:omni_manager/api/auth.dart';
 
 class LoginPage extends StatefulWidget {
   static const String routeName = "/login";
@@ -71,16 +72,20 @@ class _LoginPageState extends State<LoginPage> {
                               height: 20,
                             ),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  // Verify login data from API here
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Loading...')),
-                                  );
-                                  Constants.prefs.setBool("loggedIn", true);
-                                  Navigator.pushReplacementNamed(
-                                      context, HomePage.routeName);
+                                  bool successfulLogin = await signIn(
+                                      _usernameController.text,
+                                      _passwordController.text);
+                                  if (successfulLogin) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Loading...')),
+                                    );
+                                    Constants.prefs.setBool("loggedIn", true);
+                                    Navigator.pushReplacementNamed(
+                                        context, HomePage.routeName);
+                                  }
                                 }
                               },
                               child: Text("Sign In"),
