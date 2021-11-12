@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/Home.dart';
-import 'package:omni_manager/pages/Login.dart';
+import 'package:omni_manager/pages/home.dart';
+import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/utils/constants.dart';
 import 'package:omni_manager/api/auth.dart';
 
