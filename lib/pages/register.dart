@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/Home.dart';
-import 'package:omni_manager/pages/Login.dart';
+import 'package:omni_manager/pages/home.dart';
+import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/utils/constants.dart';
+import 'package:omni_manager/api/auth.dart';
 
 class RegisterPage extends StatefulWidget {
   static const String routeName = "/register";
@@ -120,16 +121,21 @@ class _RegisterPageState extends State<RegisterPage> {
                               height: 20,
                             ),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  // Send Data to the DB here
+                                  bool successfulRegister = await register(
+                                      _usernameController.text,
+                                      _passwordController.text);
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Loading...')),
-                                  );
-                                  Constants.prefs.setBool("loggedIn", true);
-                                  Navigator.pushReplacementNamed(
-                                      context, HomePage.routeName);
+                                  if (successfulRegister) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Loading...')),
+                                    );
+                                    Constants.prefs.setBool("loggedIn", true);
+                                    Navigator.pushReplacementNamed(
+                                        context, LoginPage.routeName);
+                                  }
                                 }
                               },
                               child: Text("Register"),

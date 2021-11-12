@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/Dashboard.dart';
-import 'package:omni_manager/pages/Forms.dart';
-import 'package:omni_manager/pages/Login.dart';
-import 'package:omni_manager/pages/Settings.dart';
-import 'package:omni_manager/pages/Spreadsheet.dart';
+import 'package:omni_manager/pages/dashboard.dart';
+import 'package:omni_manager/pages/forms.dart';
+import 'package:omni_manager/pages/login.dart';
+import 'package:omni_manager/pages/settings.dart';
+import 'package:omni_manager/pages/spreadsheet.dart';
 import 'package:omni_manager/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
