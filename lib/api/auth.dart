@@ -29,3 +29,14 @@ Future<bool> register(String email, String password) async {
     return false;
   }
 }
+
+Future<bool> updateinfo(String password) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) await user.updatePassword(password);
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}

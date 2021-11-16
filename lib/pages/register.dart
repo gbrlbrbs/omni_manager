@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     );
                                     Constants.prefs.setBool("loggedIn", true);
                                     Navigator.pushReplacementNamed(
-                                        context, LoginPage.routeName);
+                                        context, HomePage.routeName);
                                   }
                                 }
                               },
