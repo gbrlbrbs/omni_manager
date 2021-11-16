@@ -18,7 +18,7 @@ class InfoCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 158,
-        width: 155,
+        width: 168,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: normalYellow,
