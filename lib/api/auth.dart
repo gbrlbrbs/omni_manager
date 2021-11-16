@@ -30,7 +30,7 @@ Future<bool> register(String email, String password) async {
   }
 }
 
-Future<bool> updateinfo(String password) async {
+Future<bool> updateInfo(String password) async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) await user.updatePassword(password);

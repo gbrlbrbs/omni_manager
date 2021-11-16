@@ -103,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ElevatedButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  bool successfulUpdate = await updateinfo(
+                                  bool successfulUpdate = await updateInfo(
                                       _passwordController.text);
 
                                   if (successfulUpdate) {
