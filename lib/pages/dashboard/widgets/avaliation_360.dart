@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:omni_manager/constants/style.dart';
 
 /// Example without a datasource
-class ProjectsTableSimple extends StatelessWidget {
-  const ProjectsTableSimple();
+class Avaliation360TableSimple extends StatelessWidget {
+  const Avaliation360TableSimple();
 
   @override
   Widget build(BuildContext context) {
