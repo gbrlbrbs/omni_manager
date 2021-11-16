@@ -3,6 +3,7 @@ import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/register.dart';
 import 'package:omni_manager/utils/constants.dart';
 import 'package:omni_manager/api/auth.dart';
+import 'package:omni_manager/api/firebase.dart';
 
 class LoginPage extends StatefulWidget {
   static const String routeName = "/login";
@@ -82,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                                       const SnackBar(
                                           content: Text('Loading...')),
                                     );
+                                    Database.userUid = getUserUid();
                                     Constants.prefs.setBool("loggedIn", true);
                                     Navigator.pushReplacementNamed(
                                         context, HomePage.routeName);

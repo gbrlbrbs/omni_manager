@@ -29,3 +29,7 @@ Future<bool> register(String email, String password) async {
     return false;
   }
 }
+
+String getUserUid() {
+  return FirebaseAuth.instance.currentUser!.uid;
+}
