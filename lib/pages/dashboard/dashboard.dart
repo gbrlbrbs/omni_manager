@@ -27,7 +27,7 @@ class DashboardPage extends StatelessWidget {
             children: [
               Center(child: OverviewCardsLargeScreen()),
               Center(child: RevenueSectionLarge()),
-              Center(child: DataTable2SimpleDemo()),
+              //Center(child: DataTable2SimpleDemo()),
             ],
           ),
         ),
