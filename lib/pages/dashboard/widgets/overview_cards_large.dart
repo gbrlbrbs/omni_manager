@@ -5,8 +5,6 @@ import 'package:omni_manager/pages/dashboard/widgets/info_card.dart';
 class OverviewCardsLargeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(

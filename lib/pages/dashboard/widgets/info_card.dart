@@ -52,7 +52,7 @@ class InfoCard extends StatelessWidget {
                       style: TextStyle(fontSize: 40, color: dark)),
                   TextSpan(
                       text: "Média da diretoria: $mean",
-                      style: TextStyle(fontSize: 13, color: dark)),
+                      style: TextStyle(fontSize: 14, color: dark)),
                 ]),
               ),
             ),
