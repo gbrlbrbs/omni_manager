@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:omni_manager/constants/style.dart';
 import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/register.dart';
@@ -70,7 +71,7 @@ class _AppState extends State<App> {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

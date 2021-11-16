@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/dashboard.dart';
+import 'package:omni_manager/pages/dashboard/dashboard.dart';
 import 'package:omni_manager/pages/forms.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/settings.dart';

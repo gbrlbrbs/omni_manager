@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/home.dart';
+//import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/utils/constants.dart';
 import 'package:omni_manager/api/auth.dart';
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                if (formKey.currentState!.validate()) {
+                                if (formKey.currentState.validate()) {
                                   bool successfulRegister = await register(
                                       _usernameController.text,
                                       _passwordController.text);
