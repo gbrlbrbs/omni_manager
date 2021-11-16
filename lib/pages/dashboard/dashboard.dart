@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/dashboard/widgets/bar_chart_section.dart';
+import 'package:omni_manager/pages/dashboard/widgets/chart_section.dart';
 import 'package:omni_manager/pages/dashboard/widgets/custom_text_title.dart';
 import 'package:omni_manager/pages/dashboard/widgets/overview_cards_large.dart';
 //import 'package:omni_manager/pages/dashboard/widgets/projects.dart';
@@ -24,7 +24,7 @@ class DashboardPage extends StatelessWidget {
           child: Row(
             children: [
               Center(child: OverviewCardsLargeScreen()),
-              Center(child: RevenueSectionLarge()),
+              Center(child: ChartSectionLarge()),
               //A chaCenter(child: DataTable2SimpleDemo()),
             ],
           ),
