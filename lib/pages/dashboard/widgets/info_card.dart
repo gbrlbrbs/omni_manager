@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:omni_manager/constants/style.dart';
 
 class InfoCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final String mean;
-  final Color topColor;
-  final Function onTap;
+  final String? title;
+  final String? value;
+  final String? mean;
+  final Color? topColor;
+  final void Function()? onTap;
 
   const InfoCard(
-      {Key key, this.title, this.value, this.onTap, this.topColor, this.mean})
+      {Key? key, this.title, this.value, this.onTap, this.topColor, this.mean})
       : super(key: key);
 
   @override
