@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:omni_manager/constants/style.dart';
 
 class SimpleBarChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
+  final List<charts.Series<dynamic, String>> seriesList;
+  final bool? animate;
 
   SimpleBarChart(this.seriesList, {this.animate});
 
