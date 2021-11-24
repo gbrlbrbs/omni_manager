@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/constants/style.dart';
 import 'package:omni_manager/pages/dashboard/widgets/bar_chart.dart';
-import 'package:omni_manager/pages/dashboard/widgets/bar_chart_info.dart';
 import 'package:omni_manager/pages/dashboard/widgets/custom_text_content.dart';
 import 'package:omni_manager/pages/dashboard/widgets/pie_chart.dart';
 

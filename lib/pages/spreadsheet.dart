@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/dashboard/widgets/custom_text_title.dart';
-import 'package:omni_manager/pages/dashboard/widgets/projects.dart';
 
 class SpreadsheetPage extends StatelessWidget {
   const SpreadsheetPage({Key? key}) : super(key: key);
