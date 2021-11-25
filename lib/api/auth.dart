@@ -43,3 +43,14 @@ Future<bool> register(Map userData) async {
     return false;
   }
 }
+
+Future<bool> updateInfo(String password) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) await user.updatePassword(password);
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}

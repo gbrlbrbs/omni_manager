@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/register.dart';
+import 'package:omni_manager/pages/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';
 
@@ -88,6 +89,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => LoginPage(),
         HomePage.routeName: (context) => HomePage(),
         RegisterPage.routeName: (context) => RegisterPage(),
+        SettingsPage.routeName: (context) => SettingsPage(),
       },
     );
   }
