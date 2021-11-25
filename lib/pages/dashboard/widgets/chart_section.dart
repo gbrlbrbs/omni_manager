@@ -4,11 +4,11 @@ import 'package:omni_manager/pages/dashboard/widgets/bar_chart.dart';
 import 'package:omni_manager/pages/dashboard/widgets/custom_text_content.dart';
 import 'package:omni_manager/pages/dashboard/widgets/pie_chart.dart';
 
-class RevenueSectionLarge extends StatelessWidget {
+class ChartSectionLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.all(20),
       margin: EdgeInsets.symmetric(vertical: 30),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -58,6 +58,8 @@ class RevenueSectionLarge extends StatelessWidget {
               ],
             ),
           ),
+          //In case we want to display the information of the charts in text, "bar_char_info.dart"
+          //has the template for the text boxes and we just need to uncomment the section below.
           /*Container(
             width: 1,
             height: 120,
