@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';

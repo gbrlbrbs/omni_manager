@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:omni_manager/constants/style.dart';
 
 /// Example without a datasource
-class ProjectsTableSimple extends StatelessWidget {
-  const ProjectsTableSimple();
+class Avaliation360TableSimple extends StatelessWidget {
+  const Avaliation360TableSimple();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ProjectsTableSimple extends StatelessWidget {
             columns: const <DataColumn>[
               DataColumn(
                 label: Text(
-                  'Projetos',
+                  'Name',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -47,7 +47,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  '**Nome**',
+                  'Age',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -55,7 +55,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  'Média da diretoria',
+                  'Role',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -65,7 +65,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    '% de desafios semanais',
+                    'Sarah',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
@@ -83,7 +83,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    '% desafios não feitos',
+                    'Janine',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
