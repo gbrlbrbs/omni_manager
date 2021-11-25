@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class PieOutsideLabelChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  final List<charts.Series<LinearSales, int>> seriesList;
   final bool? animate;
 
   PieOutsideLabelChart(this.seriesList, {this.animate});
@@ -19,7 +19,7 @@ class PieOutsideLabelChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(seriesList,
+    return new charts.PieChart<Object>(seriesList,
         animate: animate,
         // Add an [ArcLabelDecorator] configured to render labels outside of the
         // arc with a leader line.
