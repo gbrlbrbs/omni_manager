@@ -39,7 +39,7 @@ class ProjectsTableSimple extends StatelessWidget {
             columns: const <DataColumn>[
               DataColumn(
                 label: Text(
-                  'Name',
+                  'Projetos',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -47,7 +47,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  'Age',
+                  '**Nome**',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -55,7 +55,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  'Role',
+                  'Média da diretoria',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -65,7 +65,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Sarah',
+                    '% de desafios semanais',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
@@ -83,7 +83,7 @@ class ProjectsTableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Janine',
+                    '% desafios não feitos',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
