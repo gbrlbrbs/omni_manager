@@ -21,6 +21,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _repeatpasswordController = TextEditingController();
 
+  final _companyController = TextEditingController();
+
   final _departmentController = TextEditingController();
 
   @override
@@ -63,8 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  hintText: "Enter e-mail",
-                                  labelText: "Username"),
+                                  hintText: "Your email", labelText: "Email"),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your e-mail';
@@ -110,6 +111,17 @@ class _RegisterPageState extends State<RegisterPage> {
                               height: 20,
                             ),
                             TextFormField(
+                              controller: _companyController,
+                              keyboardType: TextInputType.text,
+                              validator: (s) {},
+                              decoration: InputDecoration(
+                                  hintText: "Enter the company you work at",
+                                  labelText: "Company"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
                               controller: _departmentController,
                               keyboardType: TextInputType.text,
                               validator: (s) {},
@@ -122,10 +134,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                if (formKey.currentState.validate()) {
-                                  bool successfulRegister = await register(
-                                      _usernameController.text,
-                                      _passwordController.text);
+                                if (formKey.currentState!.validate()) {
+                                  bool successfulRegister = await register({
+                                      "email": _usernameController.text,
+                                      "password": _passwordController.text,
+                                      "name": _nameController.text,
+                                      "company": _companyController.text,
+                                      "department": _departmentController.text
+                                      });
 
                                   if (successfulRegister) {
                                     ScaffoldMessenger.of(context).showSnackBar(

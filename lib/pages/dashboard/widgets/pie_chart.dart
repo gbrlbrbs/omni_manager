@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PieOutsideLabelChart extends StatelessWidget {
   final List<charts.Series> seriesList;
-  final bool animate;
+  final bool? animate;
 
   PieOutsideLabelChart(this.seriesList, {this.animate});
 

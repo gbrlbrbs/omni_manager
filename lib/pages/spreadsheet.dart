@@ -3,7 +3,7 @@ import 'package:omni_manager/pages/dashboard/widgets/avaliation_360.dart';
 import 'package:omni_manager/pages/dashboard/widgets/custom_text_title.dart';
 
 class SpreadsheetPage extends StatelessWidget {
-  const SpreadsheetPage({Key key}) : super(key: key);
+  const SpreadsheetPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

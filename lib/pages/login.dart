@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                if (formKey.currentState.validate()) {
+                                if (formKey.currentState!.validate()) {
                                   bool successfulLogin = await signIn(
                                       _usernameController.text,
                                       _passwordController.text);
