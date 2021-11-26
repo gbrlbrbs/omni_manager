@@ -28,7 +28,21 @@ class GetUserName extends StatelessWidget {
           }
 
           return Text("Loading...");
-        }
-      );
+        });
   }
+}
+
+Future<bool> validateManagerEmail(String managerEmail) async {
+  CollectionReference users = FirebaseFirestore.instance.collection("Users");
+  // flow: vai encontrar o doc com email, determinar se existe e retornar um bool
+  return users
+      .where('email', isEqualTo: managerEmail)
+      .limit(1)
+      .get()
+      .then((snapshot) {
+    if (snapshot.docs[0].exists) {
+      return true;
+    }
+    return false;
+  });
 }
