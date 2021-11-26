@@ -25,6 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _departmentController = TextEditingController();
 
+  bool _manager = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,16 +134,49 @@ class _RegisterPageState extends State<RegisterPage> {
                             SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Manager?"),
+                                Checkbox(
+                                    checkColor: Colors.black,
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith(
+                                            (Set<MaterialState> states) {
+                                      const Set<MaterialState>
+                                          interactiveStates = <MaterialState>{
+                                        MaterialState.pressed,
+                                        MaterialState.hovered,
+                                        MaterialState.focused,
+                                        MaterialState.selected
+                                      };
+                                      if (states
+                                          .any(interactiveStates.contains)) {
+                                        return Colors.yellow;
+                                      }
+                                      return Colors.grey;
+                                    }),
+                                    value: _manager,
+                                    onChanged: (bool? _newValue) => {
+                                          setState(() {
+                                            _manager = _newValue!;
+                                          })
+                                        })
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             ElevatedButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
                                   bool successfulRegister = await register({
-                                      "email": _usernameController.text,
-                                      "password": _passwordController.text,
-                                      "name": _nameController.text,
-                                      "company": _companyController.text,
-                                      "department": _departmentController.text
-                                      });
+                                    "email": _usernameController.text,
+                                    "password": _passwordController.text,
+                                    "name": _nameController.text,
+                                    "company": _companyController.text,
+                                    "department": _departmentController.text
+                                  });
 
                                   if (successfulRegister) {
                                     ScaffoldMessenger.of(context).showSnackBar(
