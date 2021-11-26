@@ -14,10 +14,10 @@ class Avaliation360TableSimple extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.all(24),
-        margin: EdgeInsets.symmetric(vertical: 30),
+        padding: EdgeInsets.all(12),
+        margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color: normalYellow,
           borderRadius: BorderRadius.circular(8),
@@ -35,11 +35,11 @@ class Avaliation360TableSimple extends StatelessWidget {
           ),
           child: DataTable(
             dividerThickness: 1.0,
-            dataRowHeight: 32.0,
+            dataRowHeight: 29.0,
             columns: const <DataColumn>[
               DataColumn(
                 label: Text(
-                  'Name',
+                  'Avaliação 360°',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -47,7 +47,7 @@ class Avaliation360TableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  'Age',
+                  'Média individual',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -55,7 +55,7 @@ class Avaliation360TableSimple extends StatelessWidget {
               DataColumn(label: _verticalDivider),
               DataColumn(
                 label: Text(
-                  'Role',
+                  'Média geral',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.black),
                 ),
@@ -65,7 +65,7 @@ class Avaliation360TableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Sarah',
+                    'Relacionamento',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
@@ -83,7 +83,7 @@ class Avaliation360TableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Janine',
+                    'Proatividade',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
@@ -101,7 +101,133 @@ class Avaliation360TableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'William',
+                    'Potencial diretor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Desenvolveu habilidades',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Organização',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Média',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Trabalho diretoria',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Seu trabalho',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Alocação',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Motivação',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),
