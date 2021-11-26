@@ -197,7 +197,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         if (value == null || value.isEmpty) {
                                           return "Please enter your manager's e-mail";
                                         } else if (!_managerExists) {
-                                          return "Manager e-mail not found";
+                                          return "Manager not found";
                                         }
                                         return null;
                                       },
@@ -206,8 +206,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                           labelText: "Manager email"),
                                       onEditingComplete: () async {
                                         bool managerExists =
-                                            await validateManagerEmail(
-                                                _managerEmailController.text);
+                                            await validateManager(
+                                                {
+                                                  "email": _managerEmailController.text,
+                                                  "company": _companyController.text,
+                                                  "department": _departmentController.text
+                                                }
+                                              );
                                         if (!managerExists) {
                                           setState(() {
                                             _managerExists = managerExists;
