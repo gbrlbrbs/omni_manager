@@ -38,12 +38,17 @@ Future<bool> register(Map userData) async {
         .then((snapshot) {
           final String managerDocID;
           // get manager id from snapshot
+          // no need to check for existence because it's checked before
+          // the call to the register function
           managerDocID = snapshot.docs[0].id;
           users
             .doc(managerDocID)
             .collection("Employees")
             .doc(credential.user?.uid)
-            .set({"ref": users.doc(credential.user?.uid)});
+            .set(
+              {"ref": users.doc(credential.user?.uid)},
+              SetOptions(merge: true)
+            );
       });
     }
 
