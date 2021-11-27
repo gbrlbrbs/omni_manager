@@ -122,6 +122,7 @@ class _ValidationPageState extends State<ValidationPage> {
                                     child: FocusScope(
                                       child: Focus(
                                         child: TextFormField(
+                                          autovalidateMode: AutovalidateMode.onUserInteraction,
                                           controller: _managerEmailController,
                                           keyboardType: TextInputType.text,
                                           validator: (value) {
@@ -136,20 +137,6 @@ class _ValidationPageState extends State<ValidationPage> {
                                           decoration: InputDecoration(
                                               hintText: "Your manager's email",
                                               labelText: "Manager email"),
-                                          onFieldSubmitted: (value) async {
-                                            print(_managerEmailController.text);
-                                            bool managerExists =
-                                                await validateManager({
-                                              "email": value,
-                                              "company":
-                                                  _companyController.text,
-                                              "department":
-                                                  _departmentController.text
-                                            });
-                                            setState(() {
-                                              _managerExists = managerExists;
-                                            });
-                                          },
                                         ),
                                         canRequestFocus: false,
                                         onFocusChange: (value) async {
