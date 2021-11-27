@@ -15,10 +15,10 @@ class DashboardPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: EdgeInsets.only(left: 35),
             child: CustomTextTitle(
               text: "Dashboard",
-              size: 24,
+              size: 40,
               weight: FontWeight.bold,
             )),
         Container(
@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
                   children: [
                     Center(child: ProjectsTableSimple()),
