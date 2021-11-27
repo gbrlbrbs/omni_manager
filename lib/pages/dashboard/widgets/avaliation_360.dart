@@ -35,7 +35,7 @@ class Avaliation360TableSimple extends StatelessWidget {
           ),
           child: DataTable(
             dividerThickness: 1.0,
-            dataRowHeight: 29.0,
+            dataRowHeight: 27.0,
             columns: const <DataColumn>[
               DataColumn(
                 label: Text(
