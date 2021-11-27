@@ -15,7 +15,7 @@ class DashboardPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-            padding: EdgeInsets.only(left: 35),
+            padding: EdgeInsets.only(left: 30),
             child: CustomTextTitle(
               text: "Dashboard",
               size: 40,
