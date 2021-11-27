@@ -87,6 +87,13 @@ Future<bool> updateUserData(Map<String, dynamic> userData) async {
     return true;
   } catch (e) {
     print(e.toString());
+
+Future<bool> submitForms(String email, String question1, String question2,
+    String question3, String question4, String question5) async {
+  try {
+    return true;
+  } catch (e) {
+    print(e);
     return false;
   }
 }

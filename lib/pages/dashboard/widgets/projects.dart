@@ -14,10 +14,10 @@ class ProjectsTableSimple extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.all(24),
-        margin: EdgeInsets.symmetric(vertical: 30),
+        padding: EdgeInsets.all(12),
+        margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color: normalYellow,
           borderRadius: BorderRadius.circular(8),
@@ -35,7 +35,7 @@ class ProjectsTableSimple extends StatelessWidget {
           ),
           child: DataTable(
             dividerThickness: 1.0,
-            dataRowHeight: 32.0,
+            dataRowHeight: 27.0,
             columns: const <DataColumn>[
               DataColumn(
                 label: Text(
@@ -101,7 +101,151 @@ class ProjectsTableSimple extends StatelessWidget {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'William',
+                    'Média de nota',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Presença média',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Presença reunião de diretorias',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    '% tarefas realizadas',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    '% não recebeu tarefa',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Particpação na reunião',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Proatividade',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Participação whatsapp',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    '27',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                  DataCell(_verticalDivider),
+                  DataCell(Text(
+                    'Associate Professor',
+                    style: TextStyle(color: Colors.black),
+                  )),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(
+                    'Média de interação',
                     style: TextStyle(color: Colors.black),
                   )),
                   DataCell(_verticalDivider),

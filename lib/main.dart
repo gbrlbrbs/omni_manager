@@ -7,6 +7,7 @@ import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/manager_validation.dart';
 import 'package:omni_manager/pages/register.dart';
 import 'package:omni_manager/pages/settings.dart';
+import 'package:omni_manager/pages/forms/forms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';  
 
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => RegisterPage(),
         SettingsPage.routeName: (context) => SettingsPage(),
         ValidationPage.routeName: (context) => ValidationPage(),
+        FormsPage.routeName: (context) => FormsPage(),
       },
     );
   }
