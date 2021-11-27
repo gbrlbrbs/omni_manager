@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/utils/constants.dart';
 import 'package:omni_manager/api/auth.dart';
-import 'package:omni_manager/api/queries.dart';
+import 'package:omni_manager/pages/manager_validation.dart';
+//import 'package:omni_manager/api/queries.dart';
 
 class RegisterPage extends StatefulWidget {
   static const String routeName = "/register";
@@ -20,16 +21,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
 
   final _repeatpasswordController = TextEditingController();
-
-  final _companyController = TextEditingController();
-
-  final _departmentController = TextEditingController();
-
-  bool _employee = false;
-
-  bool _managerExists = false;
-
-  final _managerEmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -120,115 +111,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                TextFormField(
-                                  controller: _companyController,
-                                  keyboardType: TextInputType.text,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your company';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText: "Enter the company you work at",
-                                      labelText: "Company"),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                TextFormField(
-                                  controller: _departmentController,
-                                  keyboardType: TextInputType.text,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your department';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText:
-                                          "Enter the department you work at",
-                                      labelText: "Department"),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Employee?"),
-                                    Checkbox(
-                                        checkColor: Colors.black,
-                                        fillColor:
-                                            MaterialStateProperty.resolveWith(
-                                                (Set<MaterialState> states) {
-                                          const Set<MaterialState>
-                                              interactiveStates =
-                                              <MaterialState>{
-                                            MaterialState.pressed,
-                                            MaterialState.hovered,
-                                            MaterialState.focused,
-                                            MaterialState.selected
-                                          };
-                                          if (states.any(
-                                              interactiveStates.contains)) {
-                                            return Colors.yellow;
-                                          }
-                                          return Colors.grey;
-                                        }),
-                                        value: _employee,
-                                        onChanged: (bool? _newValue) => {
-                                              setState(() {
-                                                _employee = _newValue!;
-                                              })
-                                            })
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Visibility(
-                                    visible: _employee,
-                                    child: FocusScope(
-                                      child: Focus(
-                                        child: TextFormField(
-                                          controller: _managerEmailController,
-                                          keyboardType: TextInputType.text,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return "Please enter your manager's e-mail";
-                                            } else if (!_managerExists) {
-                                              return "Manager not found";
-                                            }
-                                            return null;
-                                          },
-                                          decoration: InputDecoration(
-                                              hintText: "Your manager's email",
-                                              labelText: "Manager email"),
-                                          onFieldSubmitted: (value) async {
-                                            bool managerExists =
-                                                await validateManager({
-                                              "email":
-                                                  value,
-                                              "company":
-                                                  _companyController.text,
-                                              "department":
-                                                  _departmentController.text
-                                            });
-                                            print(managerExists);
-                                            setState(() {
-                                              _managerExists = managerExists;
-                                            });
-                                          },
-                                        ),
-                                        canRequestFocus: false,
-                                        onFocusChange: (value) => print("focus: $value"),
-                                      ),
-                                    )),
-                                SizedBox(
-                                  height: 20,
-                                ),
                                 ElevatedButton(
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
@@ -236,12 +118,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                         "email": _usernameController.text,
                                         "password": _passwordController.text,
                                         "name": _nameController.text,
-                                        "company": _companyController.text,
-                                        "department":
-                                            _departmentController.text,
-                                        "manager": !_employee,
-                                        "manager_email":
-                                            _managerEmailController.text
                                       });
 
                                       if (successfulRegister) {
@@ -250,10 +126,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const SnackBar(
                                               content: Text('Loading...')),
                                         );
+                                        bool loggedIn = await signIn(
+                                            _usernameController.text,
+                                            _passwordController.text);
                                         Constants.prefs
-                                            .setBool("loggedIn", true);
+                                            .setBool("loggedIn", loggedIn);
+
                                         Navigator.pushReplacementNamed(
-                                            context, LoginPage.routeName);
+                                            context, ValidationPage.routeName);
                                       }
                                     }
                                   },
