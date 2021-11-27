@@ -189,38 +189,42 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 Visibility(
                                     visible: _employee,
-                                    child: Focus(
-                                      child: TextFormField(
-                                        controller: _managerEmailController,
-                                        keyboardType: TextInputType.text,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return "Please enter your manager's e-mail";
-                                          } else if (!_managerExists) {
-                                            return "Manager not found";
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                            hintText: "Your manager's email",
-                                            labelText: "Manager email"),
-                                        onEditingComplete: () async {
-                                          bool managerExists =
-                                              await validateManager({
-                                            "email":
-                                                _managerEmailController.text,
-                                            "company": _companyController.text,
-                                            "department":
-                                                _departmentController.text
-                                          });
-                                          print(managerExists);
-                                          setState(() {
-                                            _managerExists = managerExists;
-                                          });
-                                        },
+                                    child: FocusScope(
+                                      child: Focus(
+                                        child: TextFormField(
+                                          controller: _managerEmailController,
+                                          keyboardType: TextInputType.text,
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return "Please enter your manager's e-mail";
+                                            } else if (!_managerExists) {
+                                              return "Manager not found";
+                                            }
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                              hintText: "Your manager's email",
+                                              labelText: "Manager email"),
+                                          onFieldSubmitted: (value) async {
+                                            bool managerExists =
+                                                await validateManager({
+                                              "email":
+                                                  value,
+                                              "company":
+                                                  _companyController.text,
+                                              "department":
+                                                  _departmentController.text
+                                            });
+                                            print(managerExists);
+                                            setState(() {
+                                              _managerExists = managerExists;
+                                            });
+                                          },
+                                        ),
+                                        canRequestFocus: false,
+                                        onFocusChange: (value) => print("focus: $value"),
                                       ),
-                                      canRequestFocus: false,
-                                      onFocusChange: (value) => {},
                                     )),
                                 SizedBox(
                                   height: 20,
