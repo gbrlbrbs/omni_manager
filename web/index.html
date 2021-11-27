@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -26,16 +27,17 @@
   <title>omni_manager</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-  
+
   <script type="module">
     // Import the functions you need from the SDKs you need
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
-  
+
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -47,14 +49,21 @@
       appId: "1:312344520435:web:9392d50842a77f5558f986",
       measurementId: "G-SH41WYHV42"
     };
-  
+
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
   </script>
-  
+
   <script src="main.dart.js" type="application/javascript"></script>
 
   <script>
+    // tabs
+    document.addEventListener('keydown', function (event) {
+      // console.log('event key'+event.code);
+      if (event.code == 'Tab') {
+        event.preventDefault();
+      }
+    });
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
     function loadMainDartJs() {
@@ -121,6 +130,7 @@
       loadMainDartJs();
     }
   </script>
-  
+
 </body>
+
 </html>
