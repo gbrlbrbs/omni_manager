@@ -213,7 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             "department":
                                                 _departmentController.text
                                           });
-
+                                          print(managerExists);
                                           setState(() {
                                             _managerExists = managerExists;
                                           });
