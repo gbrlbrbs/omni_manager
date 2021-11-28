@@ -32,6 +32,7 @@ class _FormsPageState extends State<FormsPage> {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
                 alignment: Alignment.center,
                 child: FutureBuilder<QuerySnapshot>(
                     future: Database.listEmployees(),
@@ -40,8 +41,11 @@ class _FormsPageState extends State<FormsPage> {
                       if (snapshot.hasError) {
                         return Text('Something went wrong');
                       } else if (snapshot.hasData || snapshot.data != null) {
-                        _panels = List.generate(snapshot.data!.size,
-                            (index) => _panels[index] = false);
+                        print(snapshot.data!.docs.length);
+                        if (_panels.length == 0) {
+                          _panels = List.generate(
+                              snapshot.data!.docs.length, (index) => false);
+                        }
                         return ExpansionPanelList(
                           expansionCallback: (int index, bool isExpanded) {
                             setState(() {

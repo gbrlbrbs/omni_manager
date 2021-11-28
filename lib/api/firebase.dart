@@ -22,7 +22,7 @@ class Database {
 
   static Future<DocumentSnapshot> getEmployeeData(
       DocumentSnapshot employee) async {
-    return employee.get(FieldPath(['user'])).get();
+    return employee.get(FieldPath(['ref'])).get();
   }
 
   static Future<DocumentReference> addFormForEmployee(String? employee) async {
