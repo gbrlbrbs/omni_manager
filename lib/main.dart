@@ -12,7 +12,7 @@ import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Constants.init();
+  await Constants.init();
   runApp(App());
 }
 
