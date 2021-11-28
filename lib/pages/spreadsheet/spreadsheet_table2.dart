@@ -3,34 +3,34 @@ import 'package:flutter/material.dart';
 class DataTableWidget extends StatelessWidget {
   final List<Map<String, String>> listOfColumns = [
     {
-      "Item1": "AAAAAA",
-      "Item2": "1",
-      "Item3": "Yes",
-      "Item4": "AAAAAA",
-      "Item5": "1",
-      "Item6": "Yes",
-      "Item7": "AAAAAA",
-      "Item8": "1"
+      "media": "AAAAAA",
+      "atividade": "1",
+      "presenca": "Yes",
+      "participacao": "AAAAAA",
+      "proatividade": "1",
+      "solicitude": "Yes",
+      "media_2wks": "AAAAAA",
+      "nao_recebeu": "1"
     },
     {
-      "Item1": "BBBBBB",
-      "Item2": "2",
-      "Item3": "no",
-      "Item4": "AAAAAA",
-      "Item5": "1",
-      "Item6": "Yes",
-      "Item7": "AAAAAA",
-      "Item8": "1"
+      "media": "BBBBBB",
+      "atividade": "2",
+      "presenca": "no",
+      "participacao": "AAAAAA",
+      "proatividade": "1",
+      "solicitude": "Yes",
+      "media_2wks": "AAAAAA",
+      "nao_recebeu": "1"
     },
     {
-      "Item1": "CCCCCC",
-      "Item2": "3",
-      "Item3": "Yes",
-      "Item4": "AAAAAA",
-      "Item5": "1",
-      "Item6": "Yes",
-      "Item7": "AAAAAA",
-      "Item8": "1"
+      "media": "CCCCCC",
+      "atividade": "3",
+      "presenca": "Yes",
+      "participacao": "AAAAAA",
+      "proatividade": "1",
+      "solicitude": "Yes",
+      "media_2wks": "AAAAAA",
+      "nao_recebeu": "1"
     }
   ];
 
@@ -45,7 +45,7 @@ class DataTableWidget extends StatelessWidget {
         DataColumn(label: Text('Presente na reunião')),
         DataColumn(label: Text('Participação')),
         DataColumn(label: Text('Proatividade')),
-        DataColumn(label: Text('Whatsapp')),
+        DataColumn(label: Text('Solicitude')),
         DataColumn(label: Text('Média últimas 2 semanas')),
         DataColumn(label: Text('% de Não Recebeu Tarefas')),
       ],
@@ -54,14 +54,14 @@ class DataTableWidget extends StatelessWidget {
               .map(
                 ((element) => DataRow(
                       cells: <DataCell>[
-                        DataCell(Text(element["Item1"]!)),
-                        DataCell(Text(element["Item2"]!)),
-                        DataCell(Text(element["Item3"]!)),
-                        DataCell(Text(element["Item4"]!)),
-                        DataCell(Text(element["Item5"]!)),
-                        DataCell(Text(element["Item6"]!)),
-                        DataCell(Text(element["Item7"]!)),
-                        DataCell(Text(element["Item8"]!)),
+                        DataCell(Text(element["media"]!)),
+                        DataCell(Text(element["atividade"]!)),
+                        DataCell(Text(element["presenca"]!)),
+                        DataCell(Text(element["participacao"]!)),
+                        DataCell(Text(element["proatividade"]!)),
+                        DataCell(Text(element["solicitude"]!)),
+                        DataCell(Text(element["media_2wks"]!)),
+                        DataCell(Text(element["nao_recebeu"]!)),
                       ],
                     )),
               )
