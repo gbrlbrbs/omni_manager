@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DataTableWidget extends StatelessWidget {
-  final List<Map<String, String>> listOfColumns = [
+  final List<Map<String, dynamic>> listOfColumns = [
     {
       "media": "AAAAAA",
       "atividade": "1",
