@@ -7,11 +7,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:omni_manager/main.dart';
+import 'package:omni_manager/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  setUp(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Constants.init();
+  });
+  testWidgets('Log in page button test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
