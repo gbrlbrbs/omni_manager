@@ -42,7 +42,7 @@ Future<bool> validateManager(Map<String, String> managerData) async {
       .limit(1)
       .get()
       .then((snapshot) {
-    if (snapshot.docs[0].exists) {
+    if (snapshot.docs.isNotEmpty) {
       return true;
     }
     return false;

@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 //import 'package:omni_manager/constants/style.dart';
 import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
+import 'package:omni_manager/pages/manager_validation.dart';
 import 'package:omni_manager/pages/register.dart';
 import 'package:omni_manager/pages/settings.dart';
+import 'package:omni_manager/pages/forms/forms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';  
 
@@ -96,6 +98,8 @@ class MyApp extends StatelessWidget {
         HomePage.routeName: (context) => HomePage(),
         RegisterPage.routeName: (context) => RegisterPage(),
         SettingsPage.routeName: (context) => SettingsPage(),
+        ValidationPage.routeName: (context) => ValidationPage(),
+        FormsPage.routeName: (context) => FormsPage(),
       },
     );
   }
