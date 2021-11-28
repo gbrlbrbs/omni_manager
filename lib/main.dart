@@ -8,12 +8,11 @@ import 'package:omni_manager/pages/manager_validation.dart';
 import 'package:omni_manager/pages/register.dart';
 import 'package:omni_manager/pages/settings.dart';
 import 'package:omni_manager/pages/forms/forms.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';  
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Constants.prefs = await SharedPreferences.getInstance();
+  Constants.init();
   runApp(App());
 }
 
