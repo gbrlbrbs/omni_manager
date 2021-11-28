@@ -16,8 +16,8 @@ class Database {
         .snapshots();
   }
 
-  static Stream<QuerySnapshot> listEmployees() {
-    return _userCollection.doc(userUid).collection('Employees').snapshots();
+  static Future<QuerySnapshot> listEmployees() {
+    return _userCollection.doc(userUid).collection('Employees').get();
   }
 
   static Future<DocumentSnapshot> getEmployeeData(
