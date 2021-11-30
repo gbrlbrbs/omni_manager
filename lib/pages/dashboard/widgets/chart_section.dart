@@ -8,8 +8,8 @@ class ChartSectionLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.symmetric(vertical: 30),
+      padding: EdgeInsets.all(30),
+      margin: EdgeInsets.symmetric(vertical: 60),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -34,13 +34,13 @@ class ChartSectionLarge extends StatelessWidget {
                   color: dark,
                 ),
                 Container(
-                    width: 400,
-                    height: 200,
+                    width: 600,
+                    height: 400,
                     child: SimpleBarChart.withSampleData()),
               ],
             ),
           ),
-          Container(width: 350, height: 20, color: Colors.white),
+          Container(width: 600, height: 60, color: Colors.white),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,8 +52,8 @@ class ChartSectionLarge extends StatelessWidget {
                   color: dark,
                 ),
                 Container(
-                    width: 400,
-                    height: 200,
+                    width: 600,
+                    height: 400,
                     child: PieOutsideLabelChart.withSampleData()),
               ],
             ),

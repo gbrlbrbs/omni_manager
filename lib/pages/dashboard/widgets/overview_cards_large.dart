@@ -6,11 +6,11 @@ class OverviewCardsLargeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(30.0),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: InfoCard(
                 title: "Desempenho",
                 value: "70%",
@@ -19,7 +19,7 @@ class OverviewCardsLargeScreen extends StatelessWidget {
                 mean: "90%"),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(15.0),
             child: InfoCard(
                 title: "Presença",
                 value: "80%",
@@ -28,7 +28,7 @@ class OverviewCardsLargeScreen extends StatelessWidget {
                 mean: "50%"),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(15.0),
             child: InfoCard(
                 title: "Tarefas feitas",
                 value: "30%",

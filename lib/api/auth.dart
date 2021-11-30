@@ -1,10 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+CollectionReference users = FirebaseFirestore.instance.collection("Users");
+bool loggedUserIsManager = false;
+
 Future<bool> signIn(String email, String password) async {
   try {
-    await FirebaseAuth.instance
+    UserCredential credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+
+    loggedUserIsManager = false;
+    final snapshot = await users.doc(credential.user?.uid).get();
+    if (snapshot.exists) {
+      Map data = snapshot.data() as Map;
+      loggedUserIsManager = data["manager"] ?? false;
+    }
+
     return true;
   } catch (e) {
     print(e);
@@ -13,20 +24,17 @@ Future<bool> signIn(String email, String password) async {
 }
 
 Future<bool> register(Map userData) async {
-  CollectionReference users = FirebaseFirestore.instance.collection("Users");
-
   try {
     UserCredential credential = await FirebaseAuth.instance
-      .createUserWithEmailAndPassword(
-        email: userData["email"], password: userData["password"]
-      );
+        .createUserWithEmailAndPassword(
+            email: userData["email"], password: userData["password"]);
 
     userData.remove("password");
 
     users
-      .doc(credential.user?.uid)
-      .set(userData, SetOptions(merge: true))
-      .then((value) => print("User added"));
+        .doc(credential.user?.uid)
+        .set(userData, SetOptions(merge: true))
+        .then((value) => print("User added"));
 
     return true;
   } on FirebaseAuthException catch (e) {

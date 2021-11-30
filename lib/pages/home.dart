@@ -1,9 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:omni_manager/api/auth.dart';
 import 'package:omni_manager/pages/dashboard/dashboard.dart';
 import 'package:omni_manager/pages/forms.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/settings.dart';
-import 'package:omni_manager/pages/spreadsheet.dart';
+import 'package:omni_manager/pages/spreadsheet/spreadsheet.dart';
 import 'package:omni_manager/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   @override
@@ -52,14 +54,16 @@ class _HomePageState extends State<HomePage> {
             },
             labelType: NavigationRailLabelType.selected,
             destinations: [
-              NavigationRailDestination(
-                  icon: Icon(Icons.home_outlined),
-                  label: Text("Home"),
-                  selectedIcon: Icon(Icons.home)),
-              NavigationRailDestination(
-                  icon: Icon(Icons.list_outlined),
-                  label: Text("List"),
-                  selectedIcon: Icon(Icons.list)),
+              if (loggedUserIsManager)
+                NavigationRailDestination(
+                    icon: Icon(Icons.home_outlined),
+                    label: Text("Home"),
+                    selectedIcon: Icon(Icons.home)),
+              if (loggedUserIsManager)
+                NavigationRailDestination(
+                    icon: Icon(Icons.list_outlined),
+                    label: Text("List"),
+                    selectedIcon: Icon(Icons.list)),
               NavigationRailDestination(
                   icon: Icon(Icons.forum_outlined),
                   label: Text("Forms"),
@@ -81,15 +85,24 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget _pageAtIndex(int index) {
-  switch (index) {
-    case 0:
-      return DashboardPage();
-    case 1:
-      return SpreadsheetPage();
-    case 2:
-      return FormsPage();
-    case 3:
-      return SettingsPage();
+  if (loggedUserIsManager) {
+    switch (index) {
+      case 0:
+        return DashboardPage();
+      case 1:
+        return SpreadsheetPage();
+      case 2:
+        return FormsPage();
+      case 3:
+        return SettingsPage();
+    }
+  } else {
+    switch (index) {
+      case 0:
+        return FormsPage();
+      case 1:
+        return SettingsPage();
+    }
   }
 
   return const Center(
