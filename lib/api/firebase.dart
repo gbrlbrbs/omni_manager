@@ -50,11 +50,11 @@ class Database {
 
   static Future<DocumentSnapshot>? getForm(String? employee, bool isManager) {}
 
-  static void releaseForms() {
+  static Future<void> releaseForms() {
     final CollectionReference employees =
         _users.doc(userUid).collection('Employees');
     print('>>releaseForms()');
-    employees
+    return employees
         .get()
         .then((QuerySnapshot emp) => {
               emp.docs.forEach((element) async {
@@ -62,10 +62,8 @@ class Database {
                     await element.get(FieldPath(['user'])).get();
                 print(
                     "${user.id} \n employee: ${user.get(FieldPath(['name']))}");
-                await Future.wait([
-                  addForm(user.id, false),
-                  addForm(user.id, true)
-                ])
+                await Future.wait(
+                        [addForm(user.id, false), addForm(user.id, true)])
                     .then((value) => print('both forms added'))
                     .catchError((error) => print('some error occurred..'));
               })
@@ -73,7 +71,7 @@ class Database {
         .catchError((error) => print('error while fetching employees'));
   }
 
-  static void fillForms() {}
+  static Future<void>? fillForms() {}
 }
 
 // example
