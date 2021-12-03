@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/home.dart';
+import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/api/auth.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -124,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
-                                    context, HomePage.routeName);
+                                    context, LoginPage.routeName);
                               },
                               child: Text("Back"),
                             ),
