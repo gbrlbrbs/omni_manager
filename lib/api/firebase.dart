@@ -43,12 +43,26 @@ class Database {
       String? employee, bool isManager) async {
     return _metrics.doc(employee).collection('Formularies').add({
       'release_date': Timestamp.fromDate(DateTime.now()),
-      'filled': false,
-      'manager': isManager,
+      'is_filled': false,
+      'is_manager': isManager,
     });
   }
 
-  static Future<DocumentSnapshot>? getForm(String? employee, bool isManager) {}
+  static Future<QuerySnapshot> getForm(
+      {required bool isManager, String? employee}) {
+    var docId = isManager ? employee : userUid;
+    print(docId);
+    return _metrics
+        .doc(docId)
+        .collection('Formularies')
+        .where('is_manager', isEqualTo: isManager)
+        .where('is_filled', isEqualTo: false)
+        .where('release_date',
+            isGreaterThanOrEqualTo: Timestamp.fromDate(
+                DateTime.now().subtract(const Duration(days: 7))))
+        .limit(1)
+        .get();
+  }
 
   static Future<void> releaseForms() {
     final CollectionReference employees =
@@ -59,7 +73,7 @@ class Database {
         .then((QuerySnapshot emp) => {
               emp.docs.forEach((element) async {
                 final DocumentSnapshot user =
-                    await element.get(FieldPath(['user'])).get();
+                    await element.get(FieldPath(['ref'])).get();
                 print(
                     "${user.id} \n employee: ${user.get(FieldPath(['name']))}");
                 await Future.wait(
@@ -71,7 +85,30 @@ class Database {
         .catchError((error) => print('error while fetching employees'));
   }
 
-  static Future<void>? fillForms() {}
+  static Future<void> fillForms(
+      {required bool isManager,
+      String? employee,
+      double load: 0,
+      double completion: 0,
+      double quality: 0,
+      double proactivity: 0}) {
+    var docId = isManager ? employee : userUid;
+    return _metrics
+        .doc(docId)
+        .collection('Formularies')
+        .where('is_manager', isEqualTo: isManager)
+        .where('is_filled', isEqualTo: false)
+        .limit(1)
+        .get()
+        .then((snapshot) => snapshot.docs[0].reference.update({
+              'work_load': load,
+              'work_completion': completion,
+              'work_quality': quality,
+              'work_proactivity': proactivity,
+              'is_filled': true
+            }))
+        .catchError((err) => print('Fail: $err'));
+  }
 }
 
 // example
