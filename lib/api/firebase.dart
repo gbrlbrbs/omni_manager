@@ -11,31 +11,28 @@ class Database {
   static String? userUid = getUserUid();
 
   static Future<bool> validateManager(Map<String, String> managerData) async {
-  CollectionReference users = FirebaseFirestore.instance.collection("Users");
-  // flow: vai encontrar o doc com email, determinar se existe e retornar um bool
-  return users
-      .where("email", isEqualTo: managerData["email"])
-      .where("company", isEqualTo: managerData["company"])
-      .where("department", isEqualTo: managerData["department"])
-      .limit(1)
-      .get()
-      .then((snapshot) {
-    if (snapshot.docs.isNotEmpty) {
-      return true;
-    }
-    return false;
-  });
-}
-
-  static Stream<QuerySnapshot> listRatings() {
-    return _metricsCollection
-        .doc(userUid)
-        .collection('Formularies')
-        .snapshots();
+    CollectionReference users = FirebaseFirestore.instance.collection("Users");
+    // flow: vai encontrar o doc com email, determinar se existe e retornar um bool
+    return users
+        .where("email", isEqualTo: managerData["email"])
+        .where("company", isEqualTo: managerData["company"])
+        .where("department", isEqualTo: managerData["department"])
+        .limit(1)
+        .get()
+        .then((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return true;
+      }
+      return false;
+    });
   }
 
-  static Stream<QuerySnapshot> listEmployees() {
-    return _userCollection.doc(userUid).collection('Employees').snapshots();
+  static Future<QuerySnapshot> listRatings() {
+    return _metricsCollection.doc(userUid).collection('Formularies').get();
+  }
+
+  static Future<QuerySnapshot> listEmployees() {
+    return _userCollection.doc(userUid).collection('Employees').get();
   }
 
   static Future<DocumentSnapshot> getEmployeeData(
