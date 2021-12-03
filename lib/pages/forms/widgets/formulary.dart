@@ -4,13 +4,20 @@ import 'package:omni_manager/api/firebase.dart';
 import '../../home.dart';
 
 class Formulary extends StatefulWidget {
-  const Formulary({Key? key}) : super(key: key);
+  const Formulary({Key? key, required this.isManager, this.employee})
+      : super(key: key);
+  final bool isManager;
+  final String? employee;
 
   @override
-  _FormularyState createState() => _FormularyState();
+  _FormularyState createState() => _FormularyState(isManager, employee);
 }
 
 class _FormularyState extends State<Formulary> {
+  _FormularyState(this.isManager, this.employee);
+  final bool isManager;
+  final String? employee;
+
   final formKey = GlobalKey<FormState>();
 
   String textQuestion1 =
@@ -33,12 +40,12 @@ class _FormularyState extends State<Formulary> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: MediaQuery.of(context).size.width * 0.8,
       child: Form(
         key: formKey,
         child: Card(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -48,27 +55,26 @@ class _FormularyState extends State<Formulary> {
                 Text(
                   textQuestion1,
                 ),
-                DropdownButton<String>(
-                  value: valueQuestion1,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  underline: Container(
-                    height: 2,
-                    color: Colors.yellowAccent,
+                Container(
+                  width: 120,
+                  child: DropdownButtonFormField<String>(
+                    value: valueQuestion1,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        valueQuestion1 = newValue!;
+                      });
+                    },
+                    items: optionsQuestion1
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      valueQuestion1 = newValue!;
-                    });
-                  },
-                  items: optionsQuestion1
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
                 SizedBox(
                   height: 30,
@@ -76,27 +82,33 @@ class _FormularyState extends State<Formulary> {
                 Text(
                   textQuestion2,
                 ),
-                DropdownButton<String>(
-                  value: valueQuestion2,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  underline: Container(
-                    height: 2,
-                    color: Colors.yellowAccent,
+                Container(
+                  width: 120,
+                  child: DropdownButtonFormField<String>(
+                    value: valueQuestion2,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (int.parse(value ?? '') > int.parse(valueQuestion1)) {
+                        return "Valor incompatível";
+                      }
+                      return null;
+                    },
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        valueQuestion2 = newValue!;
+                      });
+                    },
+                    items: optionsQuestion2
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      valueQuestion2 = newValue!;
-                    });
-                  },
-                  items: optionsQuestion2
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
                 SizedBox(
                   height: 30,
@@ -104,27 +116,26 @@ class _FormularyState extends State<Formulary> {
                 Text(
                   textQuestion3,
                 ),
-                DropdownButton<String>(
-                  value: valueQuestion3,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  underline: Container(
-                    height: 2,
-                    color: Colors.yellowAccent,
+                Container(
+                  width: 120,
+                  child: DropdownButtonFormField<String>(
+                    value: valueQuestion3,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        valueQuestion3 = newValue!;
+                      });
+                    },
+                    items: optionsQuestion3
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      valueQuestion3 = newValue!;
-                    });
-                  },
-                  items: optionsQuestion3
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
                 SizedBox(
                   height: 30,
@@ -132,27 +143,26 @@ class _FormularyState extends State<Formulary> {
                 Text(
                   textQuestion4,
                 ),
-                DropdownButton<String>(
-                  value: valueQuestion4,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  underline: Container(
-                    height: 2,
-                    color: Colors.yellowAccent,
+                Container(
+                  width: 120,
+                  child: DropdownButtonFormField<String>(
+                    value: valueQuestion4,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        valueQuestion4 = newValue!;
+                      });
+                    },
+                    items: optionsQuestion4
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      valueQuestion4 = newValue!;
-                    });
-                  },
-                  items: optionsQuestion4
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
                 SizedBox(
                   height: 20,
@@ -163,7 +173,7 @@ class _FormularyState extends State<Formulary> {
                       int param1 = optionsQuestion1.indexOf(valueQuestion1);
                       double load = param1 / (optionsQuestion1.length - 1);
                       int param2 = optionsQuestion2.indexOf(valueQuestion2);
-                      double completion = param1 / param2;
+                      double completion = param2 / param1;
                       double quality =
                           optionsQuestion3.indexOf(valueQuestion3) /
                               (optionsQuestion3.length - 1);
@@ -173,11 +183,14 @@ class _FormularyState extends State<Formulary> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Loading...')),
                       );
-                      Database.fillForms()
-                          ?.then((value) => {
-                                Navigator.pushReplacementNamed(
-                                    context, HomePage.routeName)
-                              })
+                      Database.fillForms(
+                              isManager: isManager,
+                              employee: employee,
+                              load: load,
+                              completion: completion,
+                              quality: quality,
+                              proactivity: proactivity)
+                          .then((value) => print("Form filled!"))
                           .catchError((error) => print("Fail: $error"));
                     }
                   },
