@@ -4,16 +4,15 @@ import 'package:http/http.dart';
 import 'package:omni_manager/api/auth.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _userCollection = _firestore.collection('Users');
-final CollectionReference _metricsCollection = _firestore.collection('Metrics');
+final CollectionReference _users = _firestore.collection('Users');
+final CollectionReference _metrics = _firestore.collection('Metrics');
 
 class Database {
   static String? userUid = getUserUid();
 
   static Future<bool> validateManager(Map<String, String> managerData) async {
-    CollectionReference users = FirebaseFirestore.instance.collection("Users");
     // flow: vai encontrar o doc com email, determinar se existe e retornar um bool
-    return users
+    return _users
         .where("email", isEqualTo: managerData["email"])
         .where("company", isEqualTo: managerData["company"])
         .where("department", isEqualTo: managerData["department"])
@@ -28,11 +27,11 @@ class Database {
   }
 
   static Future<QuerySnapshot> listRatings() {
-    return _metricsCollection.doc(userUid).collection('Formularies').get();
+    return _metrics.doc(userUid).collection('Formularies').get();
   }
 
   static Future<QuerySnapshot> listEmployees() {
-    return _userCollection.doc(userUid).collection('Employees').get();
+    return _users.doc(userUid).collection('Employees').get();
   }
 
   static Future<DocumentSnapshot> getEmployeeData(
@@ -40,25 +39,20 @@ class Database {
     return employee.get(FieldPath(['user'])).get();
   }
 
-  static Future<DocumentReference> addFormForEmployee(String? employee) async {
-    return _metricsCollection.doc(employee).collection('Formularies').add({
+  static Future<DocumentReference> addForm(
+      String? employee, bool isManager) async {
+    return _metrics.doc(employee).collection('Formularies').add({
       'release_date': Timestamp.fromDate(DateTime.now()),
       'filled': false,
-      'manager': false,
+      'manager': isManager,
     });
   }
 
-  static Future<DocumentReference> addFormForManager(String? employee) async {
-    return _metricsCollection.doc(employee).collection('Formularies').add({
-      'release_date': Timestamp.fromDate(DateTime.now()),
-      'filled': false,
-      'manager': true,
-    });
-  }
+  static Future<DocumentSnapshot>? getForm(String? employee, bool isManager) {}
 
   static void releaseForms() {
     final CollectionReference employees =
-        _userCollection.doc(userUid).collection('Employees');
+        _users.doc(userUid).collection('Employees');
     print('>>releaseForms()');
     employees
         .get()
@@ -69,8 +63,8 @@ class Database {
                 print(
                     "${user.id} \n employee: ${user.get(FieldPath(['name']))}");
                 await Future.wait([
-                  addFormForEmployee(user.id),
-                  addFormForManager(user.id)
+                  addForm(user.id, false),
+                  addForm(user.id, true)
                 ])
                     .then((value) => print('both forms added'))
                     .catchError((error) => print('some error occurred..'));
@@ -78,6 +72,8 @@ class Database {
             })
         .catchError((error) => print('error while fetching employees'));
   }
+
+  static void fillForms() {}
 }
 
 // example
