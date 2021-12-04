@@ -50,7 +50,7 @@ class Database {
 
   static Future<DocumentSnapshot> getEmployeeData(
       DocumentSnapshot employee) async {
-    return employee.get(FieldPath(['user'])).get();
+    return employee.get(FieldPath(['ref'])).get();
   }
 
   static Future<DocumentReference> addForm(
@@ -81,7 +81,6 @@ class Database {
   static Future<void> releaseForms() {
     final CollectionReference employees =
         _users.doc(userUid).collection('Employees');
-    print('>>releaseForms()');
     return employees
         .get()
         .then((QuerySnapshot emp) => {
