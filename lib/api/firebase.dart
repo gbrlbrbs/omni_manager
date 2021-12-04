@@ -34,6 +34,20 @@ class Database {
     return _users.doc(userUid).collection('Employees').get();
   }
 
+  static Future<List> listEmployeesWithData() {
+    return listEmployees().then((snapshot) async {
+      var employees = [];
+      for (var doc in snapshot.docs) {
+        final snap = await doc.get(FieldPath(['ref'])).get();
+        employees.add(snap.data());
+      }
+      return employees;
+    }).catchError((err) {
+      print("Fail: $err");
+      return [];
+    });
+  }
+
   static Future<DocumentSnapshot> getEmployeeData(
       DocumentSnapshot employee) async {
     return employee.get(FieldPath(['user'])).get();
