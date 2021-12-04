@@ -24,21 +24,8 @@ class DashboardPage extends StatelessWidget {
         Container(
           child: Row(
             children: [
-              Row(
-                children: [
-                  Center(child: OverviewCardsLargeScreen()),
-                  Center(child: RevenueSectionLarge()),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    Center(child: ProjectsTableSimple()),
-                    Center(child: Avaliation360TableSimple()),
-                  ],
-                ),
-              )
+              Center(child: OverviewCardsLargeScreen()),
+              Center(child: RevenueSectionLarge()),
             ],
           ),
         ),

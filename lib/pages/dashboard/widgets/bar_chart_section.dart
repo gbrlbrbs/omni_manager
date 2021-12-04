@@ -28,32 +28,38 @@ class RevenueSectionLarge extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Autoavaliação",
+                  text: "Desempenho por funcionário",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                     width: 400,
-                    height: 200,
+                    height: 250,
                     child: SimpleBarChart.withSampleData()),
               ],
             ),
           ),
-          Container(width: 350, height: 20, color: Colors.white),
+          Container(width: 350, height: 50, color: Colors.white),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Desafios semanais",
+                  text: "Carga de trabalho",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                     width: 400,
-                    height: 200,
+                    height: 250,
                     child: PieOutsideLabelChart.withSampleData()),
               ],
             ),
