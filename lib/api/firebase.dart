@@ -119,7 +119,8 @@ class Database {
               'work_completion': completion,
               'work_quality': quality,
               'work_proactivity': proactivity,
-              'is_filled': true
+              'is_filled': true,
+              'submission_date': Timestamp.now()
             }))
         .catchError((err) => print('Fail: $err'));
   }
