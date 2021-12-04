@@ -1,154 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:omni_manager/constants/style.dart';
 
-/// Example without a datasource
-class SpreadsheetTableSimple extends StatelessWidget {
-  const SpreadsheetTableSimple();
+class DataTableWidget extends StatelessWidget {
+  final List<Map<String, String>> listOfColumns;
+
+  DataTableWidget(this.listOfColumns);
 
   @override
   Widget build(BuildContext context) {
-    const _verticalDivider = const VerticalDivider(
-      color: Colors.black,
-      thickness: 1,
-    );
-
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        padding: EdgeInsets.all(5),
-        margin: EdgeInsets.symmetric(vertical: 30),
-        decoration: BoxDecoration(
-          color: normalYellow,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 6),
-                color: lightGrey.withOpacity(.1),
-                blurRadius: 12)
-          ],
-          border: Border.all(color: lightGrey, width: .5),
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            dividerColor: Colors.black,
-          ),
-          child: DataTable(
-            dividerThickness: 1.0,
-            dataRowHeight: 32.0,
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Text(
-                  'Média',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Fez atividade',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Presente na reunião',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Participação',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Proatividade',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Whatsapp',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  'Média das últimas 2 semanas',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-              DataColumn(label: _verticalDivider),
-              DataColumn(
-                label: Text(
-                  '% de Não recebeu Tarefas',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                ),
-              ),
-            ],
-            rows: const <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text(
-                    'Sarah',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    '19',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                  DataCell(_verticalDivider),
-                  DataCell(Text(
-                    'Student',
-                    style: TextStyle(color: Colors.black),
-                  )),
-                ],
+    return DataTable(
+      columns: [
+        DataColumn(label: Text('Nome')),
+        DataColumn(label: Text('Média geral (%)')),
+        DataColumn(label: Text('Proatividade (%)')),
+        DataColumn(label: Text('Carga de trabalho (%)')),
+        DataColumn(label: Text('Entregas realizadas (%)')),
+        DataColumn(label: Text('Qualidade do trabalho (%)')),
+        // TODO: next steps
+        // DataColumn(label: Text('Média gerente')),
+        // DataColumn(label: Text('Média autoavaliação')),
+      ],
+      rows:
+          listOfColumns // Loops through dataColumnText, each iteration assigning the value to element
+              .map(
+                ((element) => DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text(element["name"]!)),
+                        DataCell(Text(element["performance"]!)),
+                        DataCell(Text(element["proactivity"]!)),
+                        DataCell(Text(element["work_load"]!)),
+                        DataCell(Text(element["work_completion"]!)),
+                        DataCell(Text(element["work_quality"]!)),
+                        // DataCell(Text(element["Item7"]!)),
+                        // DataCell(Text(element["Item8"]!)),
+                      ],
+                    )),
               )
-            ],
-          ),
-        ),
-      ),
+              .toList(),
     );
   }
 }
