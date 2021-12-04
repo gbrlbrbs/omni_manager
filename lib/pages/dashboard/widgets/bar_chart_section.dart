@@ -8,6 +8,7 @@ class RevenueSectionLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
       padding: EdgeInsets.all(24),
       margin: EdgeInsets.symmetric(vertical: 30),
       decoration: BoxDecoration(
@@ -34,12 +35,12 @@ class RevenueSectionLarge extends StatelessWidget {
                   color: dark,
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Container(
                     width: 400,
                     height: 250,
-                    child: SimpleBarChart.withSampleData()),
+                    child: SimpleBarChart.withUnformattedData({"A": 10, "B": 25.7, "C": 47.88})),
               ],
             ),
           ),
@@ -60,50 +61,10 @@ class RevenueSectionLarge extends StatelessWidget {
                 Container(
                     width: 400,
                     height: 250,
-                    child: PieOutsideLabelChart.withSampleData()),
+                    child: PieOutsideLabelChart.withUnformattedData({"A": 10, "B": 25.7, "C": 47.88})),
               ],
             ),
           ),
-          /*Container(
-            width: 1,
-            height: 120,
-            color: lightGrey,
-          ),
-
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  children: [
-                    RevenueInfo(
-                      title: "Toda\'s revenue",
-                      amount: "230",
-                    ),
-                    RevenueInfo(
-                      title: "Last 7 days",
-                      amount: "1,100",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    RevenueInfo(
-                      title: "Last 30 days",
-                      amount: "3,230",
-                    ),
-                    RevenueInfo(
-                      title: "Last 12 months",
-                      amount: "11,300",
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),*/
         ],
       ),
     );

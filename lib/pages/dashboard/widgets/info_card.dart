@@ -17,8 +17,8 @@ class InfoCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 158,
-        width: 168,
+        height: 180,
+        width: 220,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: normalYellow,
@@ -30,33 +30,24 @@ class InfoCard extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              color: topColor,
-              height: 5,
-            ),
-
-            //Expanded(child: Container()),
-            //Box context
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(children: [
                   TextSpan(
-                      text: "$title\n",
-                      style: TextStyle(fontSize: 20, color: dark)),
+                      text: "$title\n\n",
+                      style: TextStyle(fontSize: 25, color: dark, fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: "$value\n",
-                      style: TextStyle(fontSize: 40, color: dark)),
-                  TextSpan(
-                      text: "______________________",
-                      style: TextStyle(fontSize: 14, color: dark))
+                      text: "$value",
+                      style: TextStyle(fontSize: 45, color: dark)),
                 ]),
               ),
             ),
-            //Expanded(child: Container()),
           ],
         ),
       ),

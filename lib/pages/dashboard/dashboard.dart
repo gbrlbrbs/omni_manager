@@ -10,26 +10,35 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-            padding: EdgeInsets.only(left: 30),
-            child: CustomTextTitle(
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        alignment: Alignment.topLeft,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CustomTextTitle(
               text: "Dashboard",
               size: 40,
               weight: FontWeight.bold,
-            )),
-        Container(
-          child: Row(
-            children: [
-              Center(child: OverviewCardsLargeScreen()),
-              Center(child: RevenueSectionLarge()),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Center(child: OverviewCardsLargeScreen(performance: 0.123, completion: 0.999, quality: 0.65,)),
+                  SizedBox(width: 50),
+                  Center(child: RevenueSectionLarge()),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

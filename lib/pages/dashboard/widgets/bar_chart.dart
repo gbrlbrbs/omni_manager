@@ -17,6 +17,13 @@ class SimpleBarChart extends StatelessWidget {
     );
   }
 
+  factory SimpleBarChart.withUnformattedData(Map<String, double> rawData) {
+    return new SimpleBarChart(
+      _formatData(rawData),
+      animate: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new charts.BarChart(
@@ -26,20 +33,39 @@ class SimpleBarChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+  static List<charts.Series<OrdinalMetrics, String>> _createSampleData() {
     final data = [
-      new OrdinalSales('Trabalho Diretoria', 5),
-      new OrdinalSales('Seu trabalho', 25),
-      new OrdinalSales('Alocação', 100),
-      new OrdinalSales('Motivação', 75),
+      new OrdinalMetrics('Trabalho Diretoria', 5),
+      new OrdinalMetrics('Seu trabalho', 25),
+      new OrdinalMetrics('Alocação', 100),
+      new OrdinalMetrics('Motivação', 75),
     ];
 
     return [
-      new charts.Series<OrdinalSales, String>(
-        id: 'Sales',
+      new charts.Series<OrdinalMetrics, String>(
+        id: 'Metrics',
         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
+        domainFn: (OrdinalMetrics metrics, _) => metrics.label,
+        measureFn: (OrdinalMetrics metrics, _) => metrics.metric,
+        data: data,
+      )
+    ];
+  }
+
+  /// Create one series with List<Map> data
+  static List<charts.Series<OrdinalMetrics, String>> _formatData(
+      Map<String, double> rawData) {
+    final List<OrdinalMetrics> data = [];
+    rawData.forEach((key, value) {
+      data.add(new OrdinalMetrics(key, value));
+    });
+
+    return [
+      new charts.Series<OrdinalMetrics, String>(
+        id: 'Metrics',
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+        domainFn: (OrdinalMetrics metrics, _) => metrics.label,
+        measureFn: (OrdinalMetrics metrics, _) => metrics.metric,
         data: data,
       )
     ];
@@ -47,9 +73,9 @@ class SimpleBarChart extends StatelessWidget {
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
-  final String year;
-  final int sales;
+class OrdinalMetrics {
+  final String label;
+  final double metric;
 
-  OrdinalSales(this.year, this.sales);
+  OrdinalMetrics(this.label, this.metric);
 }
