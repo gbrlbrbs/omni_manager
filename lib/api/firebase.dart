@@ -34,6 +34,27 @@ class Database {
     return _users.doc(userUid).collection('Employees').get();
   }
 
+  static Map<String, String> listEmployeesMap() {
+    Map<String, String> mapEmployees = {};
+
+    _users
+        .doc(userUid)
+        .collection('Employees')
+        .get()
+        .then((QuerySnapshot emp) => {
+              emp.docs.forEach((element) async {
+                final DocumentSnapshot user =
+                    await element.get(FieldPath(['ref'])).get();
+                mapEmployees.addAll({
+                  user.id: user.get(FieldPath(['name']))
+                });
+              })
+            })
+        .catchError((error) => print('error while fetching employees'));
+
+    return mapEmployees;
+  }
+
   static Future<DocumentSnapshot> getEmployeeData(
       DocumentSnapshot employee) async {
     return employee.get(FieldPath(['user'])).get();

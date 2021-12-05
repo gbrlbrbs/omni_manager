@@ -91,7 +91,7 @@ class _FormularyState extends State<Formulary> {
                     elevation: 16,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (int.parse(value ?? '') > int.parse(valueQuestion1)) {
+                      if (int.parse(value ?? '') > int.parse(valueQuestion2)) {
                         return "Valor incompatível";
                       }
                       return null;
