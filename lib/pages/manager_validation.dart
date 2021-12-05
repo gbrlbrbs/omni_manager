@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/api/auth.dart';
-import 'package:omni_manager/api/queries.dart';
+import 'package:omni_manager/api/firebase.dart';
 
 class ValidationPage extends StatefulWidget {
   static const String routeName = "/validate";
@@ -142,7 +142,7 @@ class _ValidationPageState extends State<ValidationPage> {
                                         onFocusChange: (value) async {
                                           if (!value) {
                                             bool managerExists =
-                                                await validateManager({
+                                                await Database.validateManager({
                                               "email": _managerEmailController.text,
                                               "company":
                                                   _companyController.text,

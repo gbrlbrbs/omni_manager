@@ -1,10 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+CollectionReference users = FirebaseFirestore.instance.collection("Users");
+bool loggedUserIsManager = false;
+
 Future<bool> signIn(String email, String password) async {
   try {
-    await FirebaseAuth.instance
+    UserCredential credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+
+    loggedUserIsManager = false;
+    final snapshot = await users.doc(credential.user?.uid).get();
+    if (snapshot.exists) {
+      Map data = snapshot.data() as Map;
+      loggedUserIsManager = data["manager"] ?? false;
+    }
+
     return true;
   } catch (e) {
     print(e);
@@ -12,9 +23,7 @@ Future<bool> signIn(String email, String password) async {
   }
 }
 
-Future<bool> register(Map<String, dynamic> userData) async {
-  CollectionReference users = FirebaseFirestore.instance.collection("Users");
-
+Future<bool> register(Map userData) async {
   try {
     UserCredential credential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
@@ -41,6 +50,9 @@ Future<bool> register(Map<String, dynamic> userData) async {
   }
 }
 
+String getUserUid() {
+  return FirebaseAuth.instance.currentUser!.uid;
+}
 Future<bool> updateInfo(String password) async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
@@ -87,16 +99,6 @@ Future<bool> updateUserData(Map<String, dynamic> userData) async {
     return true;
   } catch (e) {
     print(e.toString());
-    return false;
-  }
-}
-
-Future<bool> submitForms(String email, String question1, String question2,
-    String question3, String question4, String question5) async {
-  try {
-    return true;
-  } catch (e) {
-    print(e);
     return false;
   }
 }
