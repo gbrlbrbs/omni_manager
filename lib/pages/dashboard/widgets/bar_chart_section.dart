@@ -8,6 +8,7 @@ class RevenueSectionLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
       padding: EdgeInsets.all(24),
       margin: EdgeInsets.symmetric(vertical: 30),
       decoration: BoxDecoration(
@@ -28,76 +29,42 @@ class RevenueSectionLarge extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Autoavaliação",
+                  text: "Desempenho por funcionário",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
                 ),
+                SizedBox(
+                  height: 30,
+                ),
                 Container(
                     width: 400,
-                    height: 200,
-                    child: SimpleBarChart.withSampleData()),
+                    height: 250,
+                    child: SimpleBarChart.withUnformattedData({"A": 10, "B": 25.7, "C": 47.88})),
               ],
             ),
           ),
-          Container(width: 350, height: 20, color: Colors.white),
+          Container(width: 350, height: 50, color: Colors.white),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Desafios semanais",
+                  text: "Carga de trabalho",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                     width: 400,
-                    height: 200,
-                    child: PieOutsideLabelChart.withSampleData()),
+                    height: 250,
+                    child: PieOutsideLabelChart.withUnformattedData({"A": 10, "B": 25.7, "C": 47.88})),
               ],
             ),
           ),
-          /*Container(
-            width: 1,
-            height: 120,
-            color: lightGrey,
-          ),
-
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  children: [
-                    RevenueInfo(
-                      title: "Toda\'s revenue",
-                      amount: "230",
-                    ),
-                    RevenueInfo(
-                      title: "Last 7 days",
-                      amount: "1,100",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    RevenueInfo(
-                      title: "Last 30 days",
-                      amount: "3,230",
-                    ),
-                    RevenueInfo(
-                      title: "Last 12 months",
-                      amount: "11,300",
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),*/
         ],
       ),
     );
