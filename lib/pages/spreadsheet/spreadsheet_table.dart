@@ -8,6 +8,7 @@ class DataTableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataTable(
+      columnSpacing: (MediaQuery.of(context).size.width / 6) * 0.2,
       columns: [
         DataColumn(label: Text('Nome')),
         DataColumn(label: Text('Média geral (%)')),

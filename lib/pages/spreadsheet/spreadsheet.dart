@@ -7,35 +7,39 @@ class SpreadsheetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: CustomTextTitle(
-                text: "Spreadsheet",
-                size: 40,
-                weight: FontWeight.bold,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      alignment: Alignment.topLeft,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: CustomTextTitle(
+                  text: "Spreadsheet",
+                  size: 40,
+                  weight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 30),
-              child: Center(
-                child: DataTableWidget(sampleData),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Center(
+                  child: DataTableWidget(sampleData),
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

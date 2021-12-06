@@ -11,7 +11,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         alignment: Alignment.topLeft,
@@ -20,10 +20,13 @@ class DashboardPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CustomTextTitle(
-              text: "Dashboard",
-              size: 40,
-              weight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 30.0),
+              child: CustomTextTitle(
+                text: "Dashboard",
+                size: 40,
+                weight: FontWeight.bold,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
