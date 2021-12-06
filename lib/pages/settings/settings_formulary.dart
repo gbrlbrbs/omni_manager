@@ -20,22 +20,22 @@ class _SettingsFormularyState extends State<SettingsFormulary> {
 
   final formKey = GlobalKey<FormState>();
 
-  String textQuestion1 = "Digite seu email de usuário:";
+  String textQuestion1 = "Digite seu novo email de usuário:";
 
-  String textQuestion2 = "Digite sua senha:";
+  String textQuestion2 = "Digite sua nova senha:";
 
-  String textQuestion3 = "Digite sua senha novamente:";
+  String textQuestion3 = "Digite sua nova senha novamente:";
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 1.2,
+      width: MediaQuery.of(context).size.width * 0.8 ,
       child: Form(
         key: formKey,
         child: Card(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(100),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

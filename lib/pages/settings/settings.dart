@@ -15,22 +15,15 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final formKey = GlobalKey<FormState>();
 
-  final _nameController = TextEditingController();
-
-  final _passwordController = TextEditingController();
-
-  final _repeatpasswordController = TextEditingController();
-
-  final _departmentController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30.0),
+      padding: const EdgeInsets.all(30.0),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: MediaQuery.of(context).size.width * 0.8,
         alignment: Alignment.topLeft,
         child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -39,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0, top: 30.0),
+                    padding: const EdgeInsets.only(bottom: 30.0),
                     child: CustomTextTitle(
                       text: "Configurações",
                       size: 40,

@@ -27,10 +27,13 @@ class _FormsPageState extends State<FormsPage> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomTextTitle(
-                    text: "Formularies",
-                    size: 40,
-                    weight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: CustomTextTitle(
+                      text: "Formularies",
+                      size: 40,
+                      weight: FontWeight.bold,
+                    ),
                   ),
                   ElevatedButton(
                       onPressed: () {
