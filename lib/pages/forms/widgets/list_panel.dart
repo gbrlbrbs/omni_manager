@@ -10,7 +10,7 @@ import 'package:omni_manager/pages/forms/widgets/formulary.dart';
 class ListPanel extends StatelessWidget {
   const ListPanel({Key? key}) : super(key: key);
 
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'Lista de Funcionários';
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +38,16 @@ class Item {
 }
 
 List<Item> generateItems() {
-  //Map<String, String> mapEmployees = Database.listEmployeesMap();
-  Map<String, String> mapEmployees = {'oi': 'OI', 'ola': 'OLA'};
+  Map<String, String> mapEmployees =
+      Database.listEmployeesMap(); // example {'oi': 'OI', 'ola': 'OLA'};
   var map = mapEmployees.entries.toList();
-  int numberOfItems = mapEmployees.length;
+  int numberOfItems = map.length;
 
   return List<Item>.generate(numberOfItems, (int index) {
     return Item(
-      headerValue: map[index].value,
-      expandedValue: map[index].value,
+      headerValue: map[index].value, //nome do usuário
+      expandedValue: map[index]
+          .value, //chave de referência user.id : a ser passa para Formulary()
     );
   });
 }
@@ -88,7 +89,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           },
           body: Container(
               alignment: Alignment.center,
-              child: Formulary(isManager: true, employee: item.expandedValue)),
+              child: Formulary(
+                  isManager: true,
+                  employee: item
+                      .expandedValue)), //example "bOLnQhbXqGdfN9p5r9jpMnoXbgC3")),
           isExpanded: item.isExpanded,
         );
       }).toList(),

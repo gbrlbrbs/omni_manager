@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:omni_manager/pages/forms/widgets/formulary.dart';
 import 'package:omni_manager/api/firebase.dart';
 import 'package:omni_manager/pages/forms/widgets/list_panel.dart';
 import '../dashboard/widgets/custom_text_title.dart';
@@ -57,30 +56,7 @@ class _FormsPageState extends State<FormsPage> {
                           });
                         },
                         child: Text("Release Forms")),
-                    ExpansionPanelList(
-                      expansionCallback: (int index, bool isExpanded) {
-                        setState(() {
-                          _data[index].isExpanded = !isExpanded;
-                        });
-                      },
-                      children: _data.map<ExpansionPanel>((Item item) {
-                        return ExpansionPanel(
-                          headerBuilder:
-                              (BuildContext context, bool isExpanded) {
-                            return ListTile(
-                              title: Text(item.headerValue),
-                            );
-                          },
-                          body: Container(
-                              alignment: Alignment.center,
-                              child: Formulary(
-                                  isManager: true,
-                                  employee:
-                                      "bOLnQhbXqGdfN9p5r9jpMnoXbgC3")), //item.expandedValue
-                          isExpanded: item.isExpanded,
-                        );
-                      }).toList(),
-                    ),
+                    ListPanel(),
                   ],
                 ),
               ]),
