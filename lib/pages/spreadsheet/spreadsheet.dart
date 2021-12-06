@@ -8,21 +8,24 @@ class SpreadsheetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: CustomTextTitle(
-                  text: "Spreadsheet",
-                  size: 40,
-                  weight: FontWeight.bold,
-                )),
+              padding: const EdgeInsets.all(30.0),
+              child: CustomTextTitle(
+                text: "Spreadsheet",
+                size: 40,
+                weight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         Row(
+          mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: EdgeInsets.only(left: 30),
