@@ -14,7 +14,7 @@ class _FormsPageState extends State<FormsPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(30.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         alignment: Alignment.topLeft,
@@ -29,7 +29,7 @@ class _FormsPageState extends State<FormsPage> {
                 children: [
                   CustomTextTitle(
                     text: "Formularies",
-                    size: 24,
+                    size: 40,
                     weight: FontWeight.bold,
                   ),
                   ElevatedButton(
@@ -48,8 +48,7 @@ class _FormsPageState extends State<FormsPage> {
                         }).catchError((err) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content:
-                                  Text("Failed to release. Error: $err"),
+                              content: Text("Failed to release. Error: $err"),
                               backgroundColor: Colors.red,
                             ),
                           );
