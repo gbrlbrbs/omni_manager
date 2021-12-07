@@ -41,9 +41,15 @@ class _FormularyState extends State<Formulary> {
   @override
   void initState() {
     super.initState();
-    Database.getForm(isManager: isManager).then((snapshot) {
+    Database.getForm(isManager: isManager, employee: employee).then((snapshot) {
       if (snapshot.docs.isEmpty) {
-        haveForms = false;
+        setState(() {
+          haveForms = false;
+        });
+      } else {
+        setState(() {
+          haveForms = true;
+        });
       }
     });
   }
