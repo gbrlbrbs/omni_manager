@@ -35,7 +35,7 @@ class DashboardPage extends StatelessWidget {
                 children: [
                   Center(child: OverviewCardsLargeScreen(performance: 0.123, completion: 0.999, quality: 0.65,)),
                   SizedBox(width: 50),
-                  Center(child: RevenueSectionLarge()),
+                  Center(child: BarChartDash()),
                 ],
               ),
             ),

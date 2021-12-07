@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart';
 import 'package:omni_manager/api/auth.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -34,9 +33,9 @@ class Database {
     return _users.doc(userUid).collection('Employees').get();
   }
 
-  static Future<List> listEmployeesWithData() {
+  static Future<List<Map<String, dynamic>>> listEmployeesWithData() {
     return listEmployees().then((snapshot) async {
-      var employees = [];
+      List<Map<String, dynamic>> employees = [];
       for (var doc in snapshot.docs) {
         final snap = await doc.get(FieldPath(['ref'])).get();
         employees.add(snap.data());
@@ -44,12 +43,12 @@ class Database {
       return employees;
     }).catchError((err) {
       print("Fail: $err");
-      return [];
+      return [] as List<Map<String, dynamic>>;
     });
   }
 
   static Future<DocumentSnapshot> getEmployeeData(
-      DocumentSnapshot employee) async {
+      DocumentSnapshot employee) {
     return employee.get(FieldPath(['ref'])).get();
   }
 
@@ -62,7 +61,7 @@ class Database {
     });
   }
 
-  static Future<QuerySnapshot> getForm(
+  static Future<QuerySnapshot> getUnfilledForm(
       {required bool isManager, String? employee}) {
     var docId = isManager ? employee : userUid;
     print(docId);
@@ -75,6 +74,25 @@ class Database {
             isGreaterThanOrEqualTo: Timestamp.fromDate(
                 DateTime.now().subtract(const Duration(days: 7))))
         .limit(1)
+        .get();
+  }
+
+  static Future<QuerySnapshot> getEmployeeForms(String empID) async {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .get();
+  }
+
+  static Future<QuerySnapshot> getEmployeeFormsLast7Days(String empID) {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .where('release_date',
+            isGreaterThanOrEqualTo: Timestamp.fromDate(
+                DateTime.now().subtract(const Duration(days: 7))))
         .get();
   }
 
