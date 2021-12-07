@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:omni_manager/api/auth.dart';
 import 'package:omni_manager/api/firebase.dart';
 import 'package:omni_manager/pages/forms/widgets/formulary.dart';
 
@@ -26,7 +27,7 @@ class ListPanel extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _ListPanelState extends State<ListPanel> {
   List<Item> _data = [];
-
+  bool isManager = loggedUserIsManager;
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,7 @@ class _ListPanelState extends State<ListPanel> {
           return Item(
             headerValue: map[index].value, //nome do usuário
             expandedValue: map[index]
-                .value, //chave de referência user.id : a ser passa para Formulary()
+                .key, //chave de referência user.id : a ser passa para Formulary()
           );
         });
       });
@@ -57,31 +58,39 @@ class _ListPanelState extends State<ListPanel> {
         child: Center(child: CircularProgressIndicator()),
       );
     }
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
-          setState(() {
-            _data[index].isExpanded = !isExpanded;
-          });
-        },
-        children: _data.map<ExpansionPanel>((Item item) {
-          return ExpansionPanel(
-            headerBuilder: (BuildContext context, bool isExpanded) {
-              return ListTile(
-                title: Text(item.headerValue),
-              );
-            },
-            body: Container(
-                alignment: Alignment.center,
-                child: Formulary(
-                    isManager: true,
-                    employee: item
-                        .expandedValue)), //example "bOLnQhbXqGdfN9p5r9jpMnoXbgC3")),
-            isExpanded: item.isExpanded,
-          );
-        }).toList(),
-      ),
-    );
+    if (!isManager) {
+      return Container(
+          alignment: Alignment.center,
+          child: Formulary(isManager: false, employee: getUserUid()));
+    } else {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: ExpansionPanelList(
+          expansionCallback: (int index, bool isExpanded) {
+            setState(() {
+              _data[index].isExpanded = !isExpanded;
+            });
+          },
+          children: _data.map<ExpansionPanel>((Item item) {
+            return ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return ListTile(
+                  title: Text(item.headerValue),
+                );
+              },
+              body: Center(
+                child: SingleChildScrollView(
+                    padding: EdgeInsets.all(32),
+                    child: Formulary(
+                        isManager: true,
+                        employee: item
+                            .expandedValue)), //example "bOLnQhbXqGdfN9p5r9jpMnoXbgC3")),
+              ),
+              isExpanded: item.isExpanded,
+            );
+          }).toList(),
+        ),
+      );
+    }
   }
 }
