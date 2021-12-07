@@ -17,9 +17,15 @@ class SimpleBarChart extends StatelessWidget {
     );
   }
 
-  factory SimpleBarChart.withUnformattedData(Map<String, double> rawData) {
-    return new SimpleBarChart(
-      _formatData(rawData),
+  factory SimpleBarChart.withUnformattedData(Map<String, double>? rawData) {
+    if (rawData != null) {
+      return new SimpleBarChart(
+        _formatData(rawData),
+        animate: false,
+      );
+    } else return new SimpleBarChart(
+      _createSampleData(),
+      // Disable animations for image tests.
       animate: false,
     );
   }

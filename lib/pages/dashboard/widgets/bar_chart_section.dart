@@ -14,11 +14,11 @@ class BarChartDash extends StatefulWidget {
 class _StatefulWrapperState extends State<BarChartDash> {
   final Future<QuerySnapshot> _employees = Database.listEmployees();
 
-  late Map<String, double> _empData;
+  Map<String, double>? _empData;
 
   void _getEmployeeData() async {
     Map<String, double> empData = {};
-    _empData = await _employees.then((query) async {
+    await _employees.then((query) async {
       if (query.size != 0) {
         for (var emp in query.docs) {
           var empDoc = Database.getEmployeeData(emp);
@@ -46,6 +46,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
         return empData;
       } else
         return {};
+    });
+    setState(() {
+      _empData = empData;
     });
   }
 
@@ -90,8 +93,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 400,
                     height: 250,
-                    child: SimpleBarChart.withUnformattedData(
-                        _empData)),
+                    child: SimpleBarChart.withUnformattedData(_empData)),
               ],
             ),
           ),
