@@ -6,10 +6,10 @@ import 'package:omni_manager/pages/home.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/manager_validation.dart';
 import 'package:omni_manager/pages/register.dart';
-import 'package:omni_manager/pages/settings.dart';
+import 'package:omni_manager/pages/settings/settings.dart';
 import 'package:omni_manager/pages/forms/forms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'utils/constants.dart';  
+import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +79,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       shortcuts: {
         LogicalKeySet(LogicalKeyboardKey.space): ActivateIntent(),
