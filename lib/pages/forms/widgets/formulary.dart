@@ -40,7 +40,7 @@ class _FormularyState extends State<Formulary> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width,
       child: Form(
         key: formKey,
         child: Card(

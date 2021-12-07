@@ -8,6 +8,7 @@ import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/settings.dart';
 import 'package:omni_manager/pages/spreadsheet/spreadsheet.dart';
 import 'package:omni_manager/utils/constants.dart';
+// import '../api/firebase.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = "/home";
@@ -17,10 +18,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  bool loaded = false;
+
+  Future<void> loadIsManager() async {
+    loggedUserIsManager = await isUserManager(getUserUid());
+  }
 
   @override
   void initState() {
     super.initState();
+    loaded = false;
+    loadIsManager().then((value) => setState(() {
+          loaded = true;
+        }));
+    // Database.listEmployeesWithData().then((value) => print(value));
   }
 
   @override
@@ -30,6 +41,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!loaded) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Omni Manager"),
+          ),
+          body: Center(child: CircularProgressIndicator()));
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Omni Manager"),

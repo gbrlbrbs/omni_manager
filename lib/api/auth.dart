@@ -9,13 +9,7 @@ Future<bool> signIn(String email, String password) async {
     UserCredential credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
 
-    loggedUserIsManager = false;
-    final snapshot = await users.doc(credential.user?.uid).get();
-    if (snapshot.exists) {
-      Map data = snapshot.data() as Map;
-      loggedUserIsManager = data["manager"] ?? false;
-    }
-
+    loggedUserIsManager = await isUserManager(credential.user?.uid);
     return true;
   } catch (e) {
     print(e);
@@ -53,6 +47,7 @@ Future<bool> register(Map userData) async {
 String getUserUid() {
   return FirebaseAuth.instance.currentUser!.uid;
 }
+
 Future<bool> updateInfo(String password) async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
@@ -62,6 +57,15 @@ Future<bool> updateInfo(String password) async {
     print(e);
     return false;
   }
+}
+
+Future<bool> isUserManager(userUid) async {
+  final snapshot = await users.doc(userUid).get();
+  if (snapshot.exists) {
+    Map data = snapshot.data() as Map;
+    return data["manager"] ?? false;
+  }
+  return false;
 }
 
 // use somente quando sabe que o usuário está logado
