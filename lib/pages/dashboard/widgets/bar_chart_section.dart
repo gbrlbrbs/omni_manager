@@ -91,7 +91,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
                     width: 400,
                     height: 250,
                     child: SimpleBarChart.withUnformattedData(
-                        {"A": 10, "B": 25.7, "C": 47.88})),
+                        _empData)),
               ],
             ),
           ),
