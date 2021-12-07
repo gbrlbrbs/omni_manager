@@ -3,6 +3,12 @@ import 'package:omni_manager/constants/style.dart';
 import 'package:omni_manager/pages/dashboard/widgets/info_card.dart';
 
 class OverviewCardsLargeScreen extends StatelessWidget {
+  final double performance;
+  final double quality;
+  final double completion;
+  OverviewCardsLargeScreen(
+      {this.performance: 0, this.completion: 0, this.quality: 0});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,28 +19,25 @@ class OverviewCardsLargeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child: InfoCard(
                 title: "Desempenho",
-                value: "70%",
+                value: (performance * 100).toStringAsFixed(1) + "%",
                 onTap: () {},
-                topColor: dark,
-                mean: "90%"),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: InfoCard(
-                title: "Presença",
-                value: "80%",
-                topColor: dark,
-                onTap: () {},
-                mean: "50%"),
+                topColor: dark),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: InfoCard(
                 title: "Tarefas feitas",
-                value: "30%",
+                value: (completion * 100).toStringAsFixed(1) + "%",
                 topColor: dark,
-                onTap: () {},
-                mean: "10%"),
+                onTap: () {}),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: InfoCard(
+                title: "Qualidade",
+                value: (quality * 100).toStringAsFixed(1) + "%",
+                topColor: dark,
+                onTap: () {}),
           ),
         ],
       ),

@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class PieOutsideLabelChart extends StatelessWidget {
-  final List<charts.Series<LinearSales, int>> seriesList;
+  final List<charts.Series<LinearMetrics, int>> seriesList;
   final bool? animate;
 
   PieOutsideLabelChart(this.seriesList, {this.animate});
@@ -13,6 +13,14 @@ class PieOutsideLabelChart extends StatelessWidget {
     return new PieOutsideLabelChart(
       _createSampleData(),
       // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+  factory PieOutsideLabelChart.withUnformattedData(
+      Map<String, double> rawData) {
+    return new PieOutsideLabelChart(
+      _formatData(rawData),
       animate: false,
     );
   }
@@ -38,32 +46,52 @@ class PieOutsideLabelChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
+  static List<charts.Series<LinearMetrics, int>> _createSampleData() {
     final data = [
-      new LinearSales(0, 90),
-      new LinearSales(1, 75),
-      new LinearSales(2, 25),
-      new LinearSales(3, 15),
+      new LinearMetrics(0, 90, "A"),
+      new LinearMetrics(1, 75, "B"),
+      new LinearMetrics(2, 25, "C"),
+      new LinearMetrics(3, 15, "D"),
     ];
 
     return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
+      new charts.Series<LinearMetrics, int>(
+        id: 'Metrics',
         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
+        domainFn: (LinearMetrics metrics, _) => metrics.year,
+        measureFn: (LinearMetrics metrics, _) => metrics.metric,
         data: data,
-        // Set a label accessor to control the text of the arc label.
-        labelAccessorFn: (LinearSales row, _) => '${row.year}: ${row.sales}',
+        labelAccessorFn: (LinearMetrics row, _) => '${row.label}',
+      )
+    ];
+  }
+
+  /// Create one series with List<Map> data
+  static List<charts.Series<LinearMetrics, int>> _formatData(
+      Map<String, double> rawData) {
+    final List<LinearMetrics> data = [];
+    rawData.forEach((key, value) {
+      data.add(new LinearMetrics(data.length, value, key));
+    });
+
+    return [
+      new charts.Series<LinearMetrics, int>(
+        id: 'Metrics',
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+        domainFn: (LinearMetrics metrics, _) => metrics.year,
+        measureFn: (LinearMetrics metrics, _) => metrics.metric,
+        data: data,
+        labelAccessorFn: (LinearMetrics row, _) => '${row.label}',
       )
     ];
   }
 }
 
 /// Sample linear data type.
-class LinearSales {
+class LinearMetrics {
   final int year;
-  final int sales;
+  final double metric;
+  final String label;
 
-  LinearSales(this.year, this.sales);
+  LinearMetrics(this.year, this.metric, this.label);
 }
