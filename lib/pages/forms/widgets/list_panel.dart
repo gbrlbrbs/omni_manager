@@ -30,7 +30,7 @@ class _ListPanelState extends State<ListPanel> {
   @override
   void initState() {
     super.initState();
-    Database.listEmployeesWithData().then((mapEmployees) {
+    Database.listEmployeesWithName().then((mapEmployees) {
       var map = mapEmployees.entries.toList();
       int numberOfItems = map.length;
       setState(() {
