@@ -14,10 +14,12 @@ class BarChartDash extends StatefulWidget {
 class _StatefulWrapperState extends State<BarChartDash> {
   final Future<QuerySnapshot> _employees = Database.listEmployees();
 
-  Map<String, double>? _empData;
+  Map<String, double>? _empDataCompl;
+  Map<String, double>? _empDataWL;
 
   void _getEmployeeData() async {
-    Map<String, double> empData = {};
+    Map<String, double> empDataCompl = {};
+    Map<String, double> empDataWL = {};
     await _employees.then((query) async {
       if (query.size != 0) {
         for (var emp in query.docs) {
@@ -31,24 +33,30 @@ class _StatefulWrapperState extends State<BarChartDash> {
           await empForms.then((snapshot) {
             if (snapshot.size != 0) {
               List<double> completions = [];
+              List<double> workLoads = [];
               snapshot.docs.forEach((form) {
                 var data = form.data() as Map<String, dynamic>;
                 var compl = data["work_completion"] as double;
+                var wl = data['work_load'] as double;
                 completions.add(compl);
+                workLoads.add(wl);
               });
-              var mean =
+              var meanCompl =
                   completions.reduce((value, element) => value + element) /
                       completions.length;
-              empData.putIfAbsent(empName, () => mean);
+              var meanWl =
+                  workLoads.reduce((value, element) => value + element) /
+                      workLoads.length;
+              empDataCompl.putIfAbsent(empName, () => meanCompl);
+              empDataWL.putIfAbsent(empName, () => meanWl);
             }
           });
         }
-        return empData;
-      } else
-        return {};
+      }
     });
     setState(() {
-      _empData = empData;
+      _empDataCompl = empDataCompl;
+      _empDataWL = empDataWL;
     });
   }
 
@@ -82,7 +90,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Desempenho por funcionário - Últimos 7 dias",
+                  text: "Carga de trabalho",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -93,7 +101,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 400,
                     height: 250,
-                    child: SimpleBarChart.withUnformattedData(_empData)),
+                    child: new SimpleBarChart.withUnformattedData(_empDataWL)),
               ],
             ),
           ),
@@ -103,7 +111,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Carga de trabalho",
+                  text: "Taxa de completude normalizada",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -114,8 +122,8 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 400,
                     height: 250,
-                    child: PieOutsideLabelChart.withUnformattedData(
-                        {"A": 10, "B": 25.7, "C": 47.88})),
+                    child: new PieOutsideLabelChart.withUnformattedData(
+                        _empDataCompl)),
               ],
             ),
           ),

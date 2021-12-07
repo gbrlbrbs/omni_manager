@@ -18,11 +18,17 @@ class PieOutsideLabelChart extends StatelessWidget {
   }
 
   factory PieOutsideLabelChart.withUnformattedData(
-      Map<String, double> rawData) {
-    return new PieOutsideLabelChart(
-      _formatData(rawData),
-      animate: false,
-    );
+      Map<String, double>? rawData) {
+    if (rawData != null) {
+      return new PieOutsideLabelChart(
+        _formatData(rawData),
+        animate: false,
+      );
+    } else return new PieOutsideLabelChart(
+        _createSampleData(),
+        // Disable animations for image tests.
+        animate: false,
+      ); 
   }
 
   @override
