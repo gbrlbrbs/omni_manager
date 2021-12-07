@@ -13,7 +13,7 @@ class _FormsPageState extends State<FormsPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+      padding: const EdgeInsets.all(30.0),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         alignment: Alignment.topLeft,
@@ -28,7 +28,7 @@ class _FormsPageState extends State<FormsPage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 30.0),
+                    padding: const EdgeInsets.only(bottom: 30.0),
                     child: CustomTextTitle(
                       text: "Formularies",
                       size: 40,
