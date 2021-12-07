@@ -18,9 +18,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
 
   void _getEmployeeData() async {
     Map<String, double> empData = {};
-    _empData = await _employees.then((query) {
+    _empData = await _employees.then((query) async {
       if (query.size != 0) {
-        query.docs.forEach((emp) async {
+        for (var emp in query.docs) {
           var empDoc = Database.getEmployeeData(emp);
           var empID = await empDoc.then((value) => value.id);
           var empName = await empDoc.then((value) {
@@ -42,9 +42,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               empData.putIfAbsent(empName, () => mean);
             }
           });
-          print(empData);
-        });
-        print(empData);
+        }
         return empData;
       } else
         return {};
