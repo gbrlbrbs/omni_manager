@@ -10,9 +10,6 @@ class FormsPage extends StatefulWidget {
 }
 
 class _FormsPageState extends State<FormsPage> {
-  var employees = Database.listEmployees();
-
-  final List<Item> _data = generateItems(); //from list_panels
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +53,9 @@ class _FormsPageState extends State<FormsPage> {
                           });
                         },
                         child: Text("Release Forms")),
-                    ListPanel(),
                   ],
                 ),
+                ListPanel(),
               ]),
         ));
   }
