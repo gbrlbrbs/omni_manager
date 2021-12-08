@@ -126,14 +126,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const SnackBar(
                                               content: Text('Loading...')),
                                         );
-                                        bool loggedIn = await signIn(
-                                            _usernameController.text,
-                                            _passwordController.text);
-                                        Constants.prefs
-                                            .setBool("loggedIn", loggedIn);
+                                        signIn(_usernameController.text,
+                                                _passwordController.text)
+                                            .then((value) {
+                                          Constants.prefs
+                                              .setBool("loggedIn", true);
 
-                                        Navigator.pushReplacementNamed(
-                                            context, ValidationPage.routeName);
+                                          Navigator.pushReplacementNamed(
+                                              context,
+                                              ValidationPage.routeName);
+                                        });
                                       }
                                     }
                                   },
