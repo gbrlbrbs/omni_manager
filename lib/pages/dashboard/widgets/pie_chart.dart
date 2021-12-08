@@ -18,11 +18,17 @@ class PieOutsideLabelChart extends StatelessWidget {
   }
 
   factory PieOutsideLabelChart.withUnformattedData(
-      Map<String, double> rawData) {
-    return new PieOutsideLabelChart(
-      _formatData(rawData),
-      animate: false,
-    );
+      Map<String, double>? rawData) {
+    if (rawData != null) {
+      return new PieOutsideLabelChart(
+        _formatData(rawData),
+        animate: false,
+      );
+    } else return new PieOutsideLabelChart(
+        _createSampleData(),
+        // Disable animations for image tests.
+        animate: false,
+      ); 
   }
 
   @override
@@ -39,7 +45,9 @@ class PieOutsideLabelChart extends StatelessWidget {
         //       new charts.ArcLabelDecorator(
         //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
         //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-        defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
+        defaultRenderer: new charts.ArcRendererConfig(
+          arcWidth: 40,
+          arcRendererDecorators: [
           new charts.ArcLabelDecorator(
               labelPosition: charts.ArcLabelPosition.outside)
         ]));

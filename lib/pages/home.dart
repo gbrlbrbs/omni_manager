@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:omni_manager/api/auth.dart';
 import 'package:omni_manager/pages/dashboard/dashboard.dart';

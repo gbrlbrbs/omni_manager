@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:http/http.dart';
 import 'package:omni_manager/api/auth.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -49,7 +48,7 @@ class Database {
   }
 
   static Future<DocumentSnapshot> getEmployeeData(
-      DocumentSnapshot employee) async {
+      DocumentSnapshot employee) {
     return employee.get(FieldPath(['ref'])).get();
   }
 
@@ -62,7 +61,7 @@ class Database {
     });
   }
 
-  static Future<QuerySnapshot> getForm(
+  static Future<QuerySnapshot> getUnfilledForm(
       {required bool isManager, String? employee}) {
     var docId = isManager ? employee : userUid;
     return _metrics
@@ -74,6 +73,35 @@ class Database {
             isGreaterThanOrEqualTo: Timestamp.fromDate(
                 DateTime.now().subtract(const Duration(days: 7))))
         .limit(1)
+        .get();
+  }
+
+  static Future<QuerySnapshot> getAllEmployeeForms(String empID) {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .get();
+  }
+
+  static Future<QuerySnapshot> getEmployeeForms(String empID, bool isManager) {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .where('is_manager', isEqualTo: isManager)
+        .get();
+  }
+
+  static Future<QuerySnapshot> getEmployeeFormsLast7Days(String empID, bool isManager) {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .where('is_manager', isEqualTo: isManager)
+        .where('release_date',
+            isGreaterThanOrEqualTo: Timestamp.fromDate(
+                DateTime.now().subtract(const Duration(days: 7))))
         .get();
   }
 
@@ -93,8 +121,8 @@ class Database {
   static Future<void> fillForms(
       {required bool isManager,
       String? employee,
-      double load: 0,
-      double completion: 0,
+      int load: 0,
+      int completion: 0,
       double quality: 0,
       double proactivity: 0}) {
     var docId = isManager ? employee : userUid;
