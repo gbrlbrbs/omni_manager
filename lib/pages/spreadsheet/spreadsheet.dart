@@ -11,6 +11,8 @@ class SpreadsheetPage extends StatefulWidget {
 }
 
 class _SpreadsheetState extends State<SpreadsheetPage> {
+  bool loaded = false;
+
   final Future<QuerySnapshot> _employees = Database.listEmployees();
 
   List<Map<String, dynamic>>? _empData;
@@ -59,7 +61,7 @@ class _SpreadsheetState extends State<SpreadsheetPage> {
               var performance = (meanCompl + meanQual + meanProac) / 3;
               employeesData.add({
                 'name': empName,
-                'performance':(performance * 100).toStringAsFixed(2),
+                'performance': (performance * 100).toStringAsFixed(2),
                 'work_load': meanWL.toStringAsFixed(0),
                 'work_completion': (meanCompl * 100).toStringAsFixed(2),
                 'work_quality': (meanQual * 100).toStringAsFixed(2),
@@ -72,6 +74,7 @@ class _SpreadsheetState extends State<SpreadsheetPage> {
     });
     setState(() {
       _empData = employeesData;
+      loaded = true;
     });
   }
 
@@ -109,8 +112,9 @@ class _SpreadsheetState extends State<SpreadsheetPage> {
               Padding(
                 padding: EdgeInsets.only(left: 30),
                 child: Center(
-                  child:
-                      DataTableWidget(listOfColumns: _empData ?? _sampleData),
+                  child: loaded
+                      ? DataTableWidget(listOfColumns: _empData ?? _sampleData)
+                      : CircularProgressIndicator(),
                 ),
               ),
             ],

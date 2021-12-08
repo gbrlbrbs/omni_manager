@@ -12,10 +12,13 @@ class BarChartDash extends StatefulWidget {
   BarChartDash({required this.isManager});
 
   @override
-  _StatefulWrapperState createState() => _StatefulWrapperState(isManager: isManager);
+  _StatefulWrapperState createState() =>
+      _StatefulWrapperState(isManager: isManager);
 }
 
 class _StatefulWrapperState extends State<BarChartDash> {
+  bool loaded = false;
+
   final Future<QuerySnapshot> _employees = Database.listEmployees();
 
   bool isManager;
@@ -37,9 +40,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
             var data = value.data() as Map<String, dynamic>;
             return data["name"];
           });
-          var empForms = Database.getEmployeeForms(
-            empID, isManager
-          );
+          var empForms = Database.getEmployeeForms(empID, isManager);
           await empForms.then((snapshot) {
             if (snapshot.size != 0) {
               List<double> completions = [];
@@ -66,6 +67,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
     setState(() {
       _empDataCompl = empDataCompl;
       _empDataWL = empDataWL;
+      loaded = true;
     });
   }
 
@@ -99,9 +101,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: isManager ? 
-                      "Taxa de finalização de tarefas - resposta do gerente" :
-                      "Taxa de finalização de tarefas - resposta do funcionário",
+                  text: "Taxa de finalização de tarefas",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -112,8 +112,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 360,
                     height: 250,
-                    child:
-                        new SimpleBarChart.withUnformattedData(_empDataCompl)),
+                    child: loaded
+                        ? new SimpleBarChart.withUnformattedData(_empDataCompl)
+                        : Center(child: CircularProgressIndicator()))
               ],
             ),
           ),
@@ -123,9 +124,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: isManager ? 
-                      "Carga de trabalho - resposta do gerente" :
-                      "Carga de trabalho - resposta do funcionário",
+                  text: "Carga de trabalho",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -136,8 +135,10 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 400,
                     height: 250,
-                    child: new PieOutsideLabelChart.withUnformattedData(
-                        _empDataWL)),
+                    child: loaded
+                        ? new PieOutsideLabelChart.withUnformattedData(
+                            _empDataWL)
+                        : Center(child: CircularProgressIndicator())),
               ],
             ),
           ),

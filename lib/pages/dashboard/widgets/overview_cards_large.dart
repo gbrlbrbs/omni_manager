@@ -10,6 +10,8 @@ class OverviewCardsLargeScreen extends StatefulWidget {
 }
 
 class _OverviewCardsState extends State<OverviewCardsLargeScreen> {
+  bool loaded = false;
+
   final Future<QuerySnapshot> _employees = Database.listEmployees();
 
   List<String>? _empNames;
@@ -91,6 +93,7 @@ class _OverviewCardsState extends State<OverviewCardsLargeScreen> {
       _proactivityMan = proactivityMan;
       _proactivityEmp = proactivityEmp;
       _selected = selected;
+      loaded = true;
     });
   }
 
@@ -103,58 +106,75 @@ class _OverviewCardsState extends State<OverviewCardsLargeScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(5.0),
-            child: DropdownButton<String>(
-              value: _selected,
-              icon: const Icon(Icons.arrow_downward),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selected = newValue!;
-                });
-              },
-              items: _empNames?.map<DropdownMenuItem<String>>((String e) {
-                return DropdownMenuItem(value: e, child: Text(e));
-              }).toList(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InfoCard(
-                title: "Proatividade - Resposta do funcionário",
-                value: ((_proactivityEmp?[_selected] ?? 0) * 100).toStringAsFixed(1) + "%",
-                topColor: dark,
-                onTap: () {}),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InfoCard(
-                title: "Proatividade - Resposta do gerente",
-                value: ((_proactivityMan?[_selected] ?? 0) * 100).toStringAsFixed(1) + "%",
-                topColor: dark,
-                onTap: () {}),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InfoCard(
-                title: "Qualidade - Resposta do funcionário",
-                value: ((_qualityEmp?[_selected] ?? 0) * 100).toStringAsFixed(1) + "%",
-                topColor: dark,
-                onTap: () {}),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InfoCard(
-                title: "Qualidade - Resposta do gerente",
-                value: ((_qualityMan?[_selected] ?? 0) * 100).toStringAsFixed(1) + "%",
-                topColor: dark,
-                onTap: () {}),
-          ),
-        ],
-      ),
-    );
+        padding: const EdgeInsets.all(30.0),
+        child: Container(
+          width: 200,
+          child: loaded
+              ? Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: DropdownButton<String>(
+                        value: _selected,
+                        icon: const Icon(Icons.arrow_downward),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selected = newValue!;
+                          });
+                        },
+                        items: _empNames
+                            ?.map<DropdownMenuItem<String>>((String e) {
+                          return DropdownMenuItem(value: e, child: Text(e));
+                        }).toList(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InfoCard(
+                          title: "Proatividade",
+                          subtitle: "Resposta do funcionário",
+                          value: ((_proactivityEmp?[_selected] ?? 0) * 100)
+                                  .toStringAsFixed(1) +
+                              "%",
+                          topColor: dark,
+                          onTap: () {}),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InfoCard(
+                          title: "Proatividade",
+                          subtitle: "Resposta do gerente",
+                          value: ((_proactivityMan?[_selected] ?? 0) * 100)
+                                  .toStringAsFixed(1) +
+                              "%",
+                          topColor: dark,
+                          onTap: () {}),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InfoCard(
+                          title: "Qualidade",
+                          subtitle: "Resposta do funcionário",
+                          value: ((_qualityEmp?[_selected] ?? 0) * 100)
+                                  .toStringAsFixed(1) +
+                              "%",
+                          topColor: dark,
+                          onTap: () {}),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InfoCard(
+                          title: "Qualidade",
+                          subtitle: "Resposta do gerente",
+                          value: ((_qualityMan?[_selected] ?? 0) * 100)
+                                  .toStringAsFixed(1) +
+                              "%",
+                          topColor: dark,
+                          onTap: () {}),
+                    ),
+                  ],
+                )
+              : Center(child: CircularProgressIndicator()),
+        ));
   }
 }

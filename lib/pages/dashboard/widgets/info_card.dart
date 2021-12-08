@@ -3,13 +3,13 @@ import 'package:omni_manager/constants/style.dart';
 
 class InfoCard extends StatelessWidget {
   final String? title;
+  final String? subtitle;
   final String? value;
-  final String? mean;
   final Color? topColor;
   final void Function()? onTap;
 
   const InfoCard(
-      {Key? key, this.title, this.value, this.onTap, this.topColor, this.mean})
+      {Key? key, this.title, this.subtitle, this.value, this.onTap, this.topColor})
       : super(key: key);
 
   @override
@@ -40,8 +40,11 @@ class InfoCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(children: [
                   TextSpan(
-                      text: "$title\n\n",
+                      text: "$title\n",
                       style: TextStyle(fontSize: 16, color: dark, fontWeight: FontWeight.bold)),
+                      TextSpan(
+                      text: "$subtitle\n\n",
+                      style: TextStyle(fontSize: 12, color: dark)),
                   TextSpan(
                       text: "$value",
                       style: TextStyle(fontSize: 32, color: dark)),
