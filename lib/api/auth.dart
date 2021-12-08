@@ -7,36 +7,27 @@ bool loggedUserIsManager = false;
 Future<UserCredential> signIn(String email, String password) async {
   try {
     return FirebaseAuth.instance
-      .signInWithEmailAndPassword(email: email, password: password);
-  } catch(e) {
+        .signInWithEmailAndPassword(email: email, password: password);
+  } catch (e) {
     return Future.error(e);
   }
 }
 
 Future<bool> register(Map userData) async {
   try {
-    UserCredential credential = await FirebaseAuth.instance
+    return FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: userData["email"], password: userData["password"]);
-
-    userData.remove("password");
-
-    users
-        .doc(credential.user?.uid)
-        .set(userData, SetOptions(merge: true))
-        .then((value) => print("User added"));
-
-    return true;
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      print('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-      print('The account already exists for that email.');
-    }
-    return false;
+            email: userData["email"], password: userData["password"])
+        .then((credential) {
+      userData.remove("password");
+      users
+          .doc(credential.user?.uid)
+          .set(userData, SetOptions(merge: true))
+          .then((value) => print("User added"));
+          return true;
+    });
   } catch (e) {
-    print(e.toString());
-    return false;
+    return Future.error(e);
   }
 }
 

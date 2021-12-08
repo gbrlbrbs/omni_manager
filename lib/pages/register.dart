@@ -118,6 +118,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                         "email": _usernameController.text,
                                         "password": _passwordController.text,
                                         "name": _nameController.text,
+                                      }).catchError((err) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                "Failed to authenticate: ${err.message}"),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
                                       });
 
                                       if (successfulRegister) {
