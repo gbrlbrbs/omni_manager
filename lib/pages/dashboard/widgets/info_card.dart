@@ -17,8 +17,8 @@ class InfoCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 180,
-        width: 220,
+        height: 120,
+        width: 200,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: normalYellow,
@@ -41,10 +41,10 @@ class InfoCard extends StatelessWidget {
                 text: TextSpan(children: [
                   TextSpan(
                       text: "$title\n\n",
-                      style: TextStyle(fontSize: 25, color: dark, fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontSize: 16, color: dark, fontWeight: FontWeight.bold)),
                   TextSpan(
                       text: "$value",
-                      style: TextStyle(fontSize: 45, color: dark)),
+                      style: TextStyle(fontSize: 32, color: dark)),
                 ]),
               ),
             ),

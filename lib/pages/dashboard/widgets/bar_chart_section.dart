@@ -7,12 +7,20 @@ import 'package:omni_manager/pages/dashboard/widgets/custom_text_content.dart';
 import 'package:omni_manager/pages/dashboard/widgets/pie_chart.dart';
 
 class BarChartDash extends StatefulWidget {
+  bool isManager;
+
+  BarChartDash({required this.isManager});
+
   @override
-  _StatefulWrapperState createState() => _StatefulWrapperState();
+  _StatefulWrapperState createState() => _StatefulWrapperState(isManager: isManager);
 }
 
 class _StatefulWrapperState extends State<BarChartDash> {
   final Future<QuerySnapshot> _employees = Database.listEmployees();
+
+  bool isManager;
+
+  _StatefulWrapperState({required this.isManager});
 
   Map<String, double>? _empDataCompl;
   Map<String, double>? _empDataWL;
@@ -29,7 +37,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
             var data = value.data() as Map<String, dynamic>;
             return data["name"];
           });
-          var empForms = Database.getEmployeeForms(empID);
+          var empForms = Database.getEmployeeForms(
+            empID, isManager
+          );
           await empForms.then((snapshot) {
             if (snapshot.size != 0) {
               List<double> completions = [];
@@ -46,8 +56,6 @@ class _StatefulWrapperState extends State<BarChartDash> {
               var meanCompl =
                   completions.reduce((value, element) => value + element) /
                       workLoad;
-              print("$empName wl: $workLoad");
-              print("$empName: ${completions.reduce((value, element) => value + element)}");
               empDataCompl.putIfAbsent(empName, () => meanCompl);
               empDataWL.putIfAbsent(empName, () => workLoad);
             }
@@ -59,7 +67,6 @@ class _StatefulWrapperState extends State<BarChartDash> {
       _empDataCompl = empDataCompl;
       _empDataWL = empDataWL;
     });
-    print(_empDataCompl);
   }
 
   @override
@@ -71,7 +78,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.3,
       padding: EdgeInsets.all(24),
       margin: EdgeInsets.symmetric(vertical: 30),
       decoration: BoxDecoration(
@@ -92,7 +99,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Taxa de finalização de tarefas",
+                  text: isManager ? 
+                      "Taxa de finalização de tarefas - resposta do gerente" :
+                      "Taxa de finalização de tarefas - resposta do funcionário",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -101,7 +110,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
                   height: 30,
                 ),
                 Container(
-                    width: 400,
+                    width: 360,
                     height: 250,
                     child:
                         new SimpleBarChart.withUnformattedData(_empDataCompl)),
@@ -114,7 +123,9 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Carga de trabalho",
+                  text: isManager ? 
+                      "Carga de trabalho - resposta do gerente" :
+                      "Carga de trabalho - resposta do funcionário",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,

@@ -13,7 +13,7 @@ class DashboardPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width * 0.9,
         alignment: Alignment.topLeft,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -33,9 +33,11 @@ class DashboardPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(child: OverviewCardsLargeScreen(performance: 0.123, completion: 0.999, quality: 0.65,)),
+                  Center(child: OverviewCardsLargeScreen()),
                   SizedBox(width: 50),
-                  Center(child: BarChartDash()),
+                  Center(child: BarChartDash(isManager: true)),
+                  SizedBox(width: 50),
+                  Center(child: BarChartDash(isManager: false))
                 ],
               ),
             ),
