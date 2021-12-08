@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/api/firebase.dart';
 
-import '../../home.dart';
-
 class Formulary extends StatefulWidget {
   const Formulary({Key? key, required this.isManager, this.employee})
       : super(key: key);
@@ -17,6 +15,9 @@ class _FormularyState extends State<Formulary> {
   _FormularyState(this.isManager, this.employee);
   final bool isManager;
   final String? employee;
+
+  bool haveForms = true;
+  bool loaded = false;
 
   final formKey = GlobalKey<FormState>();
 
@@ -38,178 +39,212 @@ class _FormularyState extends State<Formulary> {
   var optionsQuestion4 = ['Nada', 'Pouco', 'Satisfatorio', 'Muito'];
 
   @override
+  void initState() {
+    super.initState();
+    Database.getForm(isManager: isManager, employee: employee).then((snapshot) {
+      setState(() {
+        haveForms = snapshot.docs.isNotEmpty;
+        loaded = true;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Form(
-        key: formKey,
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  textQuestion1,
-                ),
-                Container(
-                  width: 120,
-                  child: DropdownButtonFormField<String>(
-                    value: valueQuestion1,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        valueQuestion1 = newValue!;
-                      });
-                    },
-                    items: optionsQuestion1
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+    if (!loaded) {
+      return Center(child: CircularProgressIndicator());
+    }
+    if (haveForms) {
+      return SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  textQuestion2,
-                ),
-                Container(
-                  width: 120,
-                  child: DropdownButtonFormField<String>(
-                    value: valueQuestion2,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (int.parse(value ?? '') > int.parse(valueQuestion1)) {
-                        return "Valor incompatível";
+                  Text(
+                    textQuestion1,
+                  ),
+                  Container(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      value: valueQuestion1,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          valueQuestion1 = newValue!;
+                        });
+                      },
+                      items: optionsQuestion1
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    textQuestion2,
+                  ),
+                  Container(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      value: valueQuestion2,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (int.parse(value ?? '') >
+                            int.parse(valueQuestion2)) {
+                          return "Valor incompatível";
+                        }
+                        return null;
+                      },
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          valueQuestion2 = newValue!;
+                        });
+                      },
+                      items: optionsQuestion2
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    textQuestion3,
+                  ),
+                  Container(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      value: valueQuestion3,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          valueQuestion3 = newValue!;
+                        });
+                      },
+                      items: optionsQuestion3
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    textQuestion4,
+                  ),
+                  Container(
+                    width: 120,
+                    child: DropdownButtonFormField<String>(
+                      value: valueQuestion4,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          valueQuestion4 = newValue!;
+                        });
+                      },
+                      items: optionsQuestion4
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        int param1 = optionsQuestion1.indexOf(valueQuestion1);
+                        double load = param1 / (optionsQuestion1.length - 1);
+                        int param2 = optionsQuestion2.indexOf(valueQuestion2);
+                        double completion = param2 / param1;
+                        double quality =
+                            optionsQuestion3.indexOf(valueQuestion3) /
+                                (optionsQuestion3.length - 1);
+                        double proactivity =
+                            optionsQuestion4.indexOf(valueQuestion4) /
+                                (optionsQuestion4.length - 1);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Loading...')),
+                        );
+                        Database.fillForms(
+                                isManager: isManager,
+                                employee: employee,
+                                load: load,
+                                completion: completion,
+                                quality: quality,
+                                proactivity: proactivity)
+                            .then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Forms submitted successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          setState(() {
+                            haveForms = false;
+                          });
+                        }).catchError((err) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Failed to submit. Error: $err"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          setState(() {});
+                        });
                       }
-                      return null;
                     },
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        valueQuestion2 = newValue!;
-                      });
-                    },
-                    items: optionsQuestion2
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                    child: Text("Submit Answer"),
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  textQuestion3,
-                ),
-                Container(
-                  width: 120,
-                  child: DropdownButtonFormField<String>(
-                    value: valueQuestion3,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        valueQuestion3 = newValue!;
-                      });
-                    },
-                    items: optionsQuestion3
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  textQuestion4,
-                ),
-                Container(
-                  width: 120,
-                  child: DropdownButtonFormField<String>(
-                    value: valueQuestion4,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        valueQuestion4 = newValue!;
-                      });
-                    },
-                    items: optionsQuestion4
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      int param1 = optionsQuestion1.indexOf(valueQuestion1);
-                      double load = param1 / (optionsQuestion1.length - 1);
-                      int param2 = optionsQuestion2.indexOf(valueQuestion2);
-                      double completion = param2 / param1;
-                      double quality =
-                          optionsQuestion3.indexOf(valueQuestion3) /
-                              (optionsQuestion3.length - 1);
-                      double proactivity =
-                          optionsQuestion4.indexOf(valueQuestion4) /
-                              (optionsQuestion4.length - 1);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Loading...')),
-                      );
-                      Database.fillForms(
-                              isManager: isManager,
-                              employee: employee,
-                              load: load,
-                              completion: completion,
-                              quality: quality,
-                              proactivity: proactivity)
-                          .then((value) => print("Form filled!"))
-                          .catchError((error) => print("Fail: $error"));
-                    }
-                  },
-                  child: Text("Submit Answer"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomePage.routeName);
-                  },
-                  child: Text("Back"),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        child: Text("Não há formulários pendentes!"),
+      );
+    }
   }
 }
