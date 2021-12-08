@@ -76,19 +76,21 @@ class Database {
         .get();
   }
 
-  static Future<QuerySnapshot> getEmployeeForms(String empID) async {
+  static Future<QuerySnapshot> getEmployeeForms(String empID, bool isManager) {
     return _metrics
         .doc(empID)
         .collection("Formularies")
         .where('is_filled', isEqualTo: true)
+        .where('is_manager', isEqualTo: isManager)
         .get();
   }
 
-  static Future<QuerySnapshot> getEmployeeFormsLast7Days(String empID) {
+  static Future<QuerySnapshot> getEmployeeFormsLast7Days(String empID, bool isManager) {
     return _metrics
         .doc(empID)
         .collection("Formularies")
         .where('is_filled', isEqualTo: true)
+        .where('is_manager', isEqualTo: isManager)
         .where('release_date',
             isGreaterThanOrEqualTo: Timestamp.fromDate(
                 DateTime.now().subtract(const Duration(days: 7))))
