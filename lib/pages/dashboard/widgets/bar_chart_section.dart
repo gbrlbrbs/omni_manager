@@ -41,14 +41,15 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 completions.add(compl);
                 workLoads.add(wl);
               });
+              var workLoad =
+                  workLoads.reduce((value, element) => value + element);
               var meanCompl =
                   completions.reduce((value, element) => value + element) /
-                      completions.length;
-              var meanWl =
-                  workLoads.reduce((value, element) => value + element) /
-                      workLoads.length;
+                      workLoad;
+              print("$empName wl: $workLoad");
+              print("$empName: ${completions.reduce((value, element) => value + element)}");
               empDataCompl.putIfAbsent(empName, () => meanCompl);
-              empDataWL.putIfAbsent(empName, () => meanWl);
+              empDataWL.putIfAbsent(empName, () => workLoad);
             }
           });
         }
@@ -58,6 +59,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
       _empDataCompl = empDataCompl;
       _empDataWL = empDataWL;
     });
+    print(_empDataCompl);
   }
 
   @override
@@ -90,7 +92,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Carga de trabalho",
+                  text: "Taxa de finalização de tarefas",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -101,7 +103,8 @@ class _StatefulWrapperState extends State<BarChartDash> {
                 Container(
                     width: 400,
                     height: 250,
-                    child: new SimpleBarChart.withUnformattedData(_empDataWL)),
+                    child:
+                        new SimpleBarChart.withUnformattedData(_empDataCompl)),
               ],
             ),
           ),
@@ -111,7 +114,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextContent(
-                  text: "Taxa de completude normalizada",
+                  text: "Carga de trabalho",
                   size: 20,
                   weight: FontWeight.bold,
                   color: dark,
@@ -123,7 +126,7 @@ class _StatefulWrapperState extends State<BarChartDash> {
                     width: 400,
                     height: 250,
                     child: new PieOutsideLabelChart.withUnformattedData(
-                        _empDataCompl)),
+                        _empDataWL)),
               ],
             ),
           ),
