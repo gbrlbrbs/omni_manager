@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DataTableWidget extends StatelessWidget {
-  final List<Map<String, String>> listOfColumns;
+  final List<Map<String, dynamic>> listOfColumns;
 
-  DataTableWidget(this.listOfColumns);
+  DataTableWidget({required this.listOfColumns});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class DataTableWidget extends StatelessWidget {
       columnSpacing: (MediaQuery.of(context).size.width / 6) * 0.2,
       columns: [
         DataColumn(label: Text('Nome')),
-        DataColumn(label: Text('Média geral (%)')),
+        // DataColumn(label: Text('Média geral (%)')),
         DataColumn(label: Text('Proatividade (%)')),
         DataColumn(label: Text('Carga de trabalho (%)')),
         DataColumn(label: Text('Entregas realizadas (%)')),
@@ -26,8 +26,8 @@ class DataTableWidget extends StatelessWidget {
                 ((element) => DataRow(
                       cells: <DataCell>[
                         DataCell(Text(element["name"]!)),
-                        DataCell(Text(element["performance"]!)),
-                        DataCell(Text(element["proactivity"]!)),
+                        // DataCell(Text(element["performance"]!)),
+                        DataCell(Text(element["work_proactivity"]!)),
                         DataCell(Text(element["work_load"]!)),
                         DataCell(Text(element["work_completion"]!)),
                         DataCell(Text(element["work_quality"]!)),

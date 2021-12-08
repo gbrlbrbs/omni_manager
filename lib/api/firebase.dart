@@ -76,6 +76,14 @@ class Database {
         .get();
   }
 
+  static Future<QuerySnapshot> getAllEmployeeForms(String empID) {
+    return _metrics
+        .doc(empID)
+        .collection("Formularies")
+        .where('is_filled', isEqualTo: true)
+        .get();
+  }
+
   static Future<QuerySnapshot> getEmployeeForms(String empID, bool isManager) {
     return _metrics
         .doc(empID)
