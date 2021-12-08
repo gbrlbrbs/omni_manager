@@ -56,11 +56,11 @@ class _SpreadsheetState extends State<SpreadsheetPage> {
               var meanProac =
                   proactivities.reduce((value, element) => value + element) /
                       proactivities.length;
-              var performance = (meanWL + meanCompl + meanQual + meanProac) / 4;
+              var performance = (meanCompl + meanQual + meanProac) / 3;
               employeesData.add({
                 'name': empName,
-                'performance': performance.toStringAsFixed(2),
-                'work_load': meanWL.toStringAsFixed(1),
+                'performance':(performance * 100).toStringAsFixed(2),
+                'work_load': meanWL.toStringAsFixed(0),
                 'work_completion': (meanCompl * 100).toStringAsFixed(2),
                 'work_quality': (meanQual * 100).toStringAsFixed(2),
                 'work_proactivity': (meanProac * 100).toStringAsFixed(2)
