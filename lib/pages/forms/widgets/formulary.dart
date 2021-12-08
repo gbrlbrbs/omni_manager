@@ -170,10 +170,8 @@ class _FormularyState extends State<Formulary> {
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      int param1 = optionsQuestion1.indexOf(valueQuestion1);
-                      double load = param1 / (optionsQuestion1.length - 1);
-                      int param2 = optionsQuestion2.indexOf(valueQuestion2);
-                      double completion = param2 / param1;
+                      int load = optionsQuestion1.indexOf(valueQuestion1);
+                      int completion = optionsQuestion2.indexOf(valueQuestion2);
                       double quality =
                           optionsQuestion3.indexOf(valueQuestion3) /
                               (optionsQuestion3.length - 1);

@@ -119,8 +119,8 @@ class Database {
   static Future<void> fillForms(
       {required bool isManager,
       String? employee,
-      double load: 0,
-      double completion: 0,
+      int load: 0,
+      int completion: 0,
       double quality: 0,
       double proactivity: 0}) {
     var docId = isManager ? employee : userUid;
