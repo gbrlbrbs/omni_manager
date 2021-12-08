@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     loadIsManager().then((value) => setState(() {
           loaded = true;
         }));
-    // Database.listEmployeesWithData().then((value) => print(value));
   }
 
   @override

@@ -33,17 +33,17 @@ class Database {
     return _users.doc(userUid).collection('Employees').get();
   }
 
-  static Future<List<Map<String, dynamic>>> listEmployeesWithData() {
+  static Future<Map> listEmployeesWithName() {
     return listEmployees().then((snapshot) async {
-      List<Map<String, dynamic>> employees = [];
+      var employees = {};
       for (var doc in snapshot.docs) {
         final snap = await doc.get(FieldPath(['ref'])).get();
-        employees.add(snap.data());
+        employees.addAll({snap.id: snap.data()["name"]});
       }
       return employees;
     }).catchError((err) {
       print("Fail: $err");
-      return [] as List<Map<String, dynamic>>;
+      return {};
     });
   }
 
@@ -64,7 +64,6 @@ class Database {
   static Future<QuerySnapshot> getUnfilledForm(
       {required bool isManager, String? employee}) {
     var docId = isManager ? employee : userUid;
-    print(docId);
     return _metrics
         .doc(docId)
         .collection('Formularies')
@@ -99,21 +98,14 @@ class Database {
   static Future<void> releaseForms() {
     final CollectionReference employees =
         _users.doc(userUid).collection('Employees');
-    return employees
-        .get()
-        .then((QuerySnapshot emp) => {
-              emp.docs.forEach((element) async {
-                final DocumentSnapshot user =
-                    await element.get(FieldPath(['ref'])).get();
-                print(
-                    "${user.id} \n employee: ${user.get(FieldPath(['name']))}");
-                await Future.wait(
-                        [addForm(user.id, false), addForm(user.id, true)])
-                    .then((value) => print('both forms added'))
-                    .catchError((error) => print('some error occurred..'));
-              })
-            })
-        .catchError((error) => print('error while fetching employees'));
+    return employees.get().then((QuerySnapshot emp) => {
+          emp.docs.forEach((element) async {
+            final DocumentSnapshot user =
+                await element.get(FieldPath(['ref'])).get();
+            await Future.wait(
+                [addForm(user.id, false), addForm(user.id, true)]);
+          })
+        });
   }
 
   static Future<void> fillForms(
@@ -138,8 +130,7 @@ class Database {
               'work_proactivity': proactivity,
               'is_filled': true,
               'submission_date': Timestamp.now()
-            }))
-        .catchError((err) => print('Fail: $err'));
+            }));
   }
 }
 
