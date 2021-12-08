@@ -34,7 +34,7 @@ class Database {
     return _users.doc(userUid).collection('Employees').get();
   }
 
-   static Future<Map> listEmployeesWithName() {
+  static Future<Map> listEmployeesWithName() {
     return listEmployees().then((snapshot) async {
       var employees = {};
       for (var doc in snapshot.docs) {
@@ -65,7 +65,6 @@ class Database {
   static Future<QuerySnapshot> getForm(
       {required bool isManager, String? employee}) {
     var docId = isManager ? employee : userUid;
-    print(docId);
     return _metrics
         .doc(docId)
         .collection('Formularies')
@@ -81,21 +80,14 @@ class Database {
   static Future<void> releaseForms() {
     final CollectionReference employees =
         _users.doc(userUid).collection('Employees');
-    return employees
-        .get()
-        .then((QuerySnapshot emp) => {
-              emp.docs.forEach((element) async {
-                final DocumentSnapshot user =
-                    await element.get(FieldPath(['ref'])).get();
-                print(
-                    "${user.id} \n employee: ${user.get(FieldPath(['name']))}");
-                await Future.wait(
-                        [addForm(user.id, false), addForm(user.id, true)])
-                    .then((value) => print('both forms added'))
-                    .catchError((error) => print('some error occurred..'));
-              })
-            })
-        .catchError((error) => print('error while fetching employees'));
+    return employees.get().then((QuerySnapshot emp) => {
+          emp.docs.forEach((element) async {
+            final DocumentSnapshot user =
+                await element.get(FieldPath(['ref'])).get();
+            await Future.wait(
+                [addForm(user.id, false), addForm(user.id, true)]);
+          })
+        });
   }
 
   static Future<void> fillForms(
@@ -120,8 +112,7 @@ class Database {
               'work_proactivity': proactivity,
               'is_filled': true,
               'submission_date': Timestamp.now()
-            }))
-        .catchError((err) => print('Fail: $err'));
+            }));
   }
 }
 

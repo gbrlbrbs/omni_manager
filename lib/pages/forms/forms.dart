@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/api/auth.dart';
 import 'package:omni_manager/api/firebase.dart';
+import 'package:omni_manager/pages/forms/widgets/formulary.dart';
 import 'package:omni_manager/pages/forms/widgets/list_panel.dart';
-import 'package:omni_manager/pages/home.dart';
 import '../dashboard/widgets/custom_text_title.dart';
 
 class FormsPage extends StatefulWidget {
@@ -16,14 +16,13 @@ class _FormsPageState extends State<FormsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        alignment: Alignment.topLeft,
-        child: Center(
+    if (isManager) {
+      return Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          alignment: Alignment.topLeft,
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(12),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -56,6 +55,7 @@ class _FormsPageState extends State<FormsPage> {
                               );
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
+                              setState(() {});
                             }).catchError((err) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -66,6 +66,7 @@ class _FormsPageState extends State<FormsPage> {
                               );
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
+                              setState(() {});
                             });
                           },
                           child: Text("Release Forms"))
@@ -75,17 +76,45 @@ class _FormsPageState extends State<FormsPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, HomePage.routeName);
-                    },
-                    child: Text("Back"),
+                ]),
+          ),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          alignment: Alignment.topLeft,
+          child: SingleChildScrollView(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30.0),
+                        child: CustomTextTitle(
+                          text: "Formularies",
+                          size: 40,
+                          weight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Formulary(
+                    isManager: isManager,
+                    employee: getUserUid(),
                   ),
                 ]),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

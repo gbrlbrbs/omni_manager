@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omni_manager/api/firebase.dart';
 
-import '../../home.dart';
-
 class Formulary extends StatefulWidget {
   const Formulary({Key? key, required this.isManager, this.employee})
       : super(key: key);
@@ -17,7 +15,9 @@ class _FormularyState extends State<Formulary> {
   _FormularyState(this.isManager, this.employee);
   final bool isManager;
   final String? employee;
+
   bool haveForms = true;
+  bool loaded = false;
 
   final formKey = GlobalKey<FormState>();
 
@@ -42,20 +42,18 @@ class _FormularyState extends State<Formulary> {
   void initState() {
     super.initState();
     Database.getForm(isManager: isManager, employee: employee).then((snapshot) {
-      if (snapshot.docs.isEmpty) {
-        setState(() {
-          haveForms = false;
-        });
-      } else {
-        setState(() {
-          haveForms = true;
-        });
-      }
+      setState(() {
+        haveForms = snapshot.docs.isNotEmpty;
+        loaded = true;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!loaded) {
+      return Center(child: CircularProgressIndicator());
+    }
     if (haveForms) {
       return SingleChildScrollView(
         child: Form(
@@ -208,8 +206,27 @@ class _FormularyState extends State<Formulary> {
                                 completion: completion,
                                 quality: quality,
                                 proactivity: proactivity)
-                            .then((value) => print("Form filled!"))
-                            .catchError((error) => print("Fail: $error"));
+                            .then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Forms submitted successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          setState(() {
+                            haveForms = false;
+                          });
+                        }).catchError((err) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Failed to submit. Error: $err"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          setState(() {});
+                        });
                       }
                     },
                     child: Text("Submit Answer"),
@@ -225,7 +242,8 @@ class _FormularyState extends State<Formulary> {
       );
     } else {
       return Container(
-        child: Text("Esse Formulário já foi preenchido!"),
+        alignment: Alignment.center,
+        child: Text("Não há formulários pendentes!"),
       );
     }
   }
