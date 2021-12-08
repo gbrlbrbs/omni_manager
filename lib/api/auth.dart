@@ -4,16 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 CollectionReference users = FirebaseFirestore.instance.collection("Users");
 bool loggedUserIsManager = false;
 
-Future<bool> signIn(String email, String password) async {
+Future<UserCredential> signIn(String email, String password) async {
   try {
-    UserCredential credential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-
-    loggedUserIsManager = await isUserManager(credential.user?.uid);
-    return true;
-  } catch (e) {
-    print(e);
-    return false;
+    return FirebaseAuth.instance
+      .signInWithEmailAndPassword(email: email, password: password);
+  } catch(e) {
+    return Future.error(e);
   }
 }
 
