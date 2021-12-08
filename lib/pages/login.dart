@@ -75,19 +75,36 @@ class _LoginPageState extends State<LoginPage> {
                             ElevatedButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  bool successfulLogin = await signIn(
-                                      _usernameController.text,
-                                      _passwordController.text);
-                                  if (successfulLogin) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Loading...')),
+                                  );
+                                  signIn(_usernameController.text,
+                                          _passwordController.text)
+                                      .then((value) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          content: Text('Loading...')),
+                                        content:
+                                            Text('Logged in successfully!'),
+                                        backgroundColor: Colors.green,
+                                      ),
                                     );
-                                    Database.userUid = getUserUid();
+                                    Database.userUid = value.user?.uid;
                                     Constants.prefs.setBool("loggedIn", true);
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     Navigator.pushReplacementNamed(
                                         context, HomePage.routeName);
-                                  }
+                                  }).catchError((err) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            "Failed to authenticate: ${err.message}"),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  });
                                 }
                               },
                               child: Text("Sign In"),
