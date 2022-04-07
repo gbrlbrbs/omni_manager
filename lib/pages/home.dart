@@ -5,6 +5,7 @@ import 'package:omni_manager/pages/forms/forms.dart';
 import 'package:omni_manager/pages/login.dart';
 import 'package:omni_manager/pages/settings/settings.dart';
 import 'package:omni_manager/pages/spreadsheet/spreadsheet.dart';
+import 'package:omni_manager/pages/sidebar/sidebar.dart';
 import 'package:omni_manager/utils/constants.dart';
 // import '../api/firebase.dart';
 
@@ -29,6 +30,12 @@ class _HomePageState extends State<HomePage> {
     loadIsManager().then((value) => setState(() {
           loaded = true;
         }));
+  }
+
+  void callback(int index) {
+    setState(() {
+      this._selectedIndex = index;
+    });
   }
 
   @override
@@ -60,35 +67,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Row(
         children: [
-          NavigationRail(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            labelType: NavigationRailLabelType.selected,
-            destinations: [
-              if (loggedUserIsManager)
-                NavigationRailDestination(
-                    icon: Icon(Icons.home_outlined),
-                    label: Text("Home"),
-                    selectedIcon: Icon(Icons.home)),
-              if (loggedUserIsManager)
-                NavigationRailDestination(
-                    icon: Icon(Icons.list_outlined),
-                    label: Text("List"),
-                    selectedIcon: Icon(Icons.list)),
-              NavigationRailDestination(
-                  icon: Icon(Icons.forum_outlined),
-                  label: Text("Forms"),
-                  selectedIcon: Icon(Icons.forum)),
-              NavigationRailDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  label: Text("Settings"),
-                  selectedIcon: Icon(Icons.settings)),
-            ],
-          ),
+          Sidebar(selectedIndex: _selectedIndex, loggedUserIsManager: loggedUserIsManager, callback: this.callback),
           const VerticalDivider(
             width: 1,
           ),
